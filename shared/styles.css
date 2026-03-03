@@ -1,0 +1,495 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,700&display=swap');
+
+:root {
+  /* Colors - Modern Dark Palette */
+  --background-color: #0B0E14;
+  /* Deep Slate */
+  --card-bg: rgba(22, 24, 29, 0.7);
+  --card-border: rgba(255, 255, 255, 0.08);
+
+  --primary-color: #ffed00;
+  /* Aulab Yellow */
+  --secondary-color: #38bdf8;
+  /* React Cyan for accents */
+  --text-color: #F3F4F6;
+  --muted-color: #9CA3AF;
+  --accent-gradient: linear-gradient(135deg, #ffed00 0%, #38bdf8 100%);
+
+  /* Typography */
+  --heading-font: 'Montserrat', sans-serif;
+  --body-font: 'Montserrat', sans-serif;
+  --base-font-size: 32px;
+  --text-size: 18pt;
+  --h1-size: 56pt;
+  --h2-size: 42pt;
+  --h3-size: 28pt;
+
+  /* Layout */
+  --slide-padding: 80px;
+  --box-radius: 16px;
+}
+
+.reveal {
+  font-family: var(--body-font);
+  font-size: var(--base-font-size);
+  color: var(--text-color);
+}
+
+.reveal-viewport {
+  background-color: var(--background-color);
+  background-image:
+    radial-gradient(circle at 0% 0%, rgba(255, 237, 0, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 100% 100%, rgba(56, 189, 248, 0.03) 0%, transparent 50%);
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4 {
+  font-family: var(--heading-font);
+  text-transform: none;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* ===========================================
+   BASE STYLES - Override reveal.js defaults
+   =========================================== */
+
+.reveal {
+  font-family: var(--body-font);
+  font-size: var(--base-font-size);
+}
+
+/* Restore bold after reset.css strips it with font: inherit */
+.reveal strong,
+.reveal b {
+  font-weight: bold;
+}
+
+/* Apply background colors */
+.reveal-viewport {
+  background-color: var(--background-color);
+}
+
+/* Section divider background via data-state */
+.reveal-viewport.is-section-divider .slide-background.present {
+  background-color: var(--section-divider-bg) !important;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  font-family: var(--heading-font);
+  text-transform: none;
+  color: var(--text-color);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.reveal h1 {
+  font-size: var(--h1-size);
+}
+
+.reveal h2 {
+  font-size: var(--h2-size);
+  margin-bottom: 0;
+}
+
+.reveal h3 {
+  font-size: var(--h3-size);
+}
+
+.reveal p,
+.reveal li,
+.reveal td,
+.reveal th,
+.reveal blockquote {
+  font-size: var(--text-size);
+  color: var(--text-color);
+  line-height: 1.5;
+}
+
+/* ===========================================
+   LISTS
+   =========================================== */
+
+.reveal ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 15px 0;
+}
+
+.reveal ul li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+}
+
+.reveal ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 8px;
+  height: 8px;
+  background: var(--text-color);
+  border-radius: 50%;
+}
+
+.reveal ul ul li::before {
+  background: var(--muted-color);
+  width: 6px;
+  height: 6px;
+}
+
+/* Prevent double-sizing for nested elements */
+.reveal blockquote p {
+  font-size: inherit;
+}
+
+/* ===========================================
+   SLIDE LAYOUT
+   =========================================== */
+
+.reveal .slides section {
+  height: 100%;
+  display: flex !important;
+  flex-direction: column !important;
+  padding: var(--slide-padding-top) var(--slide-padding) var(--slide-padding) var(--slide-padding) !important;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Vertical stack wrapper - no padding, just pass through */
+.reveal .slides section.stack {
+  padding: 0 !important;
+}
+
+/* Content area - fills remaining space */
+.reveal .slides section>.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: var(--content-gap);
+  text-align: left;
+}
+
+/* Footnotes at bottom */
+.reveal .slides section>.footnote {
+  position: absolute;
+  bottom: 15px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  font-size: var(--footnote-size);
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   SECTION DIVIDERS - Centered title slides
+   =========================================== */
+
+.reveal .slides section.section-divider {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider h1 {
+  font-size: 56pt;
+  text-align: center;
+}
+
+.reveal .slides section.section-divider p {
+  font-size: 20pt;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   SLIDE HEADER — eyebrow label
+   mb-* e margin-* di Tailwind non applicano per
+   lo stesso motivo del padding (layers vs non-layered).
+   =========================================== */
+
+.reveal .slide-header {
+  margin-bottom: 50px !important;
+}
+
+/* ===========================================
+   GLASS CARD — padding e tipografia
+   Reveal reset.css usa * { padding: 0 } non-layered
+   che batte le utility Tailwind messe in @layer.
+   Definiamo qui con !important per vincere.
+   =========================================== */
+
+.reveal .glass-card {
+  padding: 2.5rem 3rem !important;
+}
+
+.reveal .glass-card h3,
+.reveal .glass-card h4 {
+  font-size: 14pt !important;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.reveal .glass-card p,
+.reveal .glass-card li {
+  font-size: 12pt !important;
+  line-height: 1.7;
+}
+
+/* ===========================================
+   TERMINAL CARD — step-by-step CLI workflow
+   =========================================== */
+
+.reveal .terminal-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.reveal .terminal-card > .terminal-card-title {
+  font-size: 0.6rem !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #6b7280;
+}
+
+.reveal .terminal-step {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.reveal .terminal-step-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reveal .terminal-step-badge {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.55rem !important;
+  font-weight: 900;
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+.reveal .terminal-step-name {
+  font-size: 0.6rem !important;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: #38bdf8;
+}
+
+.reveal .terminal-step-code {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-family: monospace;
+  font-size: 0.78rem !important;
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.reveal .terminal-step-code::before {
+  content: '$';
+  color: rgba(56, 189, 248, 0.4);
+  font-size: 0.7rem;
+  flex-shrink: 0;
+}
+
+/* ===========================================
+   IDE BLOCK — VS Code-style code window
+   =========================================== */
+
+.ide-block {
+  background: #1e1e1e;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.ide-block .ide-titlebar {
+  background: #2d2d2d;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ide-block .ide-traffic-lights {
+  display: flex;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.ide-block .ide-traffic-lights span:nth-child(1) { width: 0.7rem; height: 0.7rem; border-radius: 9999px; background: #ff5f57; display: block; }
+.ide-block .ide-traffic-lights span:nth-child(2) { width: 0.7rem; height: 0.7rem; border-radius: 9999px; background: #febc2e; display: block; }
+.ide-block .ide-traffic-lights span:nth-child(3) { width: 0.7rem; height: 0.7rem; border-radius: 9999px; background: #28c840; display: block; }
+
+.ide-block .ide-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: #1e1e1e;
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem 0.25rem 0 0;
+  border-top: 2px solid #38bdf8;
+  font-family: monospace;
+  font-size: 0.65rem !important;
+  font-weight: 600;
+  color: #cccccc;
+}
+
+.ide-block .ide-body {
+  display: flex;
+  padding: 1.25rem 0;
+  font-family: monospace;
+  font-size: 1.5rem !important;
+  line-height: 1.8;
+  color: #d4d4d4;
+}
+
+.ide-block .ide-gutter {
+  padding: 0 1rem 0 1.25rem;
+  text-align: right;
+  color: #4a4a4a;
+  user-select: none;
+  min-width: 2.5rem;
+  font-size: 1.5rem !important;
+  line-height: 1.8;
+}
+
+.ide-block .ide-code {
+  padding: 0 1.5rem;
+  overflow: auto;
+}
+
+/* Syntax token colors (VS Code Dark+) */
+.ide-block .tok-keyword  { color: #569cd6; }
+.ide-block .tok-type     { color: #4ec9b0; }
+.ide-block .tok-fn       { color: #dcdcaa; }
+.ide-block .tok-param    { color: #9cdcfe; }
+.ide-block .tok-string   { color: #ce9178; }
+.ide-block .tok-comment  { color: #6a9955; }
+
+/* Other text utilities */
+.text-muted {
+  color: var(--muted-color) !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.font-light {
+  font-weight: 300;
+}
+
+.font-bold {
+  font-weight: 600;
+}
+
+.reveal .controls {
+  color: var(--primary-color) !important;
+}
+
+/* ===========================================
+   AULAB LOGO POSITIONING
+   =========================================== */
+
+/* ===========================================
+   BLOCKQUOTES
+   =========================================== */
+
+.reveal blockquote {
+  border-left: 4px solid var(--primary-color);
+  padding-left: 20px;
+  margin: 20px 0;
+  font-style: italic;
+  background: none;
+  box-shadow: none;
+  width: 100%;
+  max-width: none;
+}
+
+.reveal blockquote cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  color: var(--muted-color);
+}
+
+/* ===========================================
+   OPTIONAL: TITLE WITH UNDERLINE
+
+   Add this to presentations where you want
+   a line under the slide title.
+   =========================================== */
+
+/*
+.reveal .slides section > h1,
+.reveal .slides section > h2 {
+  flex-shrink: 0;
+  margin: 0;
+  padding-bottom: 15px;
+  border-bottom: 2px solid var(--line-color);
+}
+*/
+
+/* ===========================================
+   OPTIONAL: DECORATIVE ELEMENTS
+   =========================================== */
+
+/* Top decorative line on all slides */
+/*
+.reveal .slides section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--primary-color);
+}
+*/
+
+/* Bottom decorative line */
+/*
+.reveal .slides section::after {
+  content: '';
+  position: absolute;
+  bottom: 40px;
+  left: var(--slide-padding);
+  right: var(--slide-padding);
+  height: 2px;
+  background: var(--line-color);
+}
+*/

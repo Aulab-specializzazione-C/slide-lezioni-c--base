@@ -1,0 +1,3112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C# - Introduzione al Linguaggio</title>
+
+  <!-- Reveal.js core -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reset.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css">
+
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="../../shared/styles.css">
+
+  <!-- Tailwind CSS v4 -->
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --color-aulab-yellow: #ffed00;
+      --color-aulab-cyan: #38bdf8;
+      --color-dark-bg: #0B0E14;
+      --font-montserrat: "Montserrat", ui-sans-serif, system-ui;
+    }
+
+    @layer base {
+      body {
+        @apply font-montserrat bg-dark-bg text-gray-100 antialiased;
+      }
+      /* Reset Reveal.js list bullets inside our custom containers */
+      .reveal .slides section .glass-card ul li::before {
+        display: none !important;
+      }
+      .reveal .slides section .glass-card ul {
+        @apply list-none m-0 p-0;
+      }
+      .reveal .slides section .glass-card li {
+        @apply p-0 m-0;
+      }
+    }
+
+    .glass-card {
+      @apply bg-white/[0.05] border border-white/[0.12] backdrop-blur-xl rounded-2xl shadow-2xl;
+    }
+    
+    .text-gradient {
+      @apply bg-clip-text text-transparent bg-linear-to-r from-aulab-yellow via-aulab-cyan to-aulab-cyan font-extrabold;
+    }
+    
+    .section-divider-title {
+      @apply text-8xl font-black tracking-tighter leading-none text-white;
+    }
+  </style>
+
+  <style>
+    /* Aulab Logo Positioning */
+    .aulab-logo {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      z-index: 1000;
+      width: 100px;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+  </style>
+
+  <!-- Chart.js for data visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+  <img src="https://aulab.it/build/assets/aulab-logo-CZ5aNHEO.svg" class="aulab-logo" alt="Aulab Logo">
+  <div class="reveal">
+    <div class="slides">
+
+
+      <!-- SECTION 1: INTRODUZIONE E STORIA -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-yellow/60">Capitolo 01</span>
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(255,237,0,0.08)]">
+              <i class="fa-solid fa-clock-rotate-left text-7xl text-aulab-yellow"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Introduzione
+              </h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">&amp;
+                Storia</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Le origini e l'evoluzione di
+              .NET</p>
+          </div>
+        </section>
+
+        <!-- Slide: Le Origini -->
+        <section id="origins">
+          <div class="flex flex-col h-full">
+            <!-- Slide header -->
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">01.01 &mdash;
+                Origins</span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+                <!-- Hero card -->
+                <div class="col-span-12 glass-card p-8 relative overflow-hidden flex items-center gap-10 group">
+                  <div
+                    class="absolute -right-16 -top-16 w-56 h-56 bg-aulab-yellow/5 rounded-full blur-3xl group-hover:bg-aulab-yellow/10 transition-colors duration-500">
+                  </div>
+                  <!-- Year accent -->
+                  <div class="shrink-0 text-center relative z-10 w-24">
+                    <span
+                      class="block text-[4.5rem] font-black text-aulab-yellow/10 leading-none tracking-tighter">90s</span>
+                    <span
+                      class="inline-block mt-1 text-[0.6rem] font-bold uppercase tracking-[0.2em] text-aulab-yellow border border-aulab-yellow/30 rounded px-2 py-1 bg-aulab-yellow/5">Late</span>
+                  </div>
+                  <!-- Divider -->
+                  <div class="w-px h-16 bg-white/10 shrink-0"></div>
+                  <!-- Content -->
+                  <div class="relative z-10 flex flex-col gap-3">
+                    <h3 class="text-xl font-black uppercase tracking-tight">Microsoft &amp; Anders Hejlsberg</h3>
+                    <p class="text-base text-gray-300 leading-relaxed">
+                      Progettato come cuore della strategia <strong class="text-white font-bold">.NET
+                        Framework</strong>.
+                      Hejlsberg, autore di Delphi, guidò il team verso un linguaggio moderno, sicuro e nativo per l'era
+                      Windows.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Feature cards -->
+                <div
+                  class="col-span-6 glass-card p-12 border-l-4 border-aulab-cyan/50 flex flex-col justify-center gap-6">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-9 h-9 rounded-lg bg-aulab-cyan/10 flex items-center justify-center border border-aulab-cyan/20 shrink-0">
+                      <i class="fa-brands fa-java text-aulab-cyan text-base"></i>
+                    </div>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white">L'ombra di Java</h4>
+                  </div>
+                  <p class="text-sm text-gray-400 leading-relaxed">Nato da dispute legali con Sun Microsystems: C#
+                    doveva
+                    essere l'alternativa nativa e «migliore» di Microsoft.</p>
+                </div>
+
+                <div
+                  class="col-span-6 glass-card p-12 border-l-4 border-aulab-yellow/50 flex flex-col justify-center gap-6">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-9 h-9 rounded-lg bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20 shrink-0">
+                      <i class="fa-solid fa-crosshairs text-aulab-yellow text-base"></i>
+                    </div>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white">Obiettivo Chiaro</h4>
+                  </div>
+                  <p class="text-sm text-gray-400 leading-relaxed">Unire la potenza di C++ alla semplicità di Java, con
+                    integrazione profonda nell'ecosistema Windows.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide: Evoluzione e Sicurezza -->
+        <section id="evolution">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">01.02 &mdash;
+                Features</span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-6 w-full">
+                <div
+                  class="glass-card flex flex-col gap-6 group hover:border-aulab-yellow/40 transition-all duration-300">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-11 h-11 rounded-xl bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20 shrink-0">
+                      <i class="fa-solid fa-shield-halved text-lg text-aulab-yellow"></i>
+                    </div>
+                    <h4 class="text-lg font-black uppercase tracking-tight">Security First</h4>
+                  </div>
+                  <div class="w-full h-px bg-white/5"></div>
+                  <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-aulab-yellow shrink-0"></span>
+                      <span><strong class="text-white font-semibold">Garbage Collection</strong> automatica — nessun
+                        free() manuale</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-aulab-yellow shrink-0"></span>
+                      <span>Prevenzione di memory leaks e dangling pointers</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div
+                  class="glass-card flex flex-col gap-6 group hover:border-aulab-cyan/40 transition-all duration-300">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-11 h-11 rounded-xl bg-aulab-cyan/10 flex items-center justify-center border border-aulab-cyan/20 shrink-0">
+                      <i class="fa-solid fa-layer-group text-lg text-aulab-cyan"></i>
+                    </div>
+                    <h4 class="text-lg font-black uppercase tracking-tight">Pure OOP</h4>
+                  </div>
+                  <div class="w-full h-px bg-white/5"></div>
+                  <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-aulab-cyan shrink-0"></span>
+                      <span><strong class="text-white font-semibold">Tipizzazione Forte</strong> — ogni variabile ha un
+                        tipo definito</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-aulab-cyan shrink-0"></span>
+                      <span>Errori rilevati a tempo di compilazione, non a runtime</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide: La Piattaforma .NET -->
+        <section id="dotnet-history">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">01.03 &mdash;
+                Platform</span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="flex items-stretch gap-4 w-full" style="height: 280px;">
+
+                <!-- .NET Framework -->
+                <div class="flex-1 glass-card p-6 flex flex-col items-center justify-center text-center group">
+                  <div class="flex flex-col items-center gap-4">
+                    <span
+                      class="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity">The
+                      Legacy</span>
+                    <div>
+                      <span
+                        class="block text-4xl font-black text-gray-300 italic tracking-tighter leading-none">.NET</span>
+                      <span class="block text-xl font-black text-gray-400 italic tracking-tight">Framework</span>
+                    </div>
+                    <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-wider">2002 · L'era
+                      Windows<br>Potente ma chiusa</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center shrink-0 px-2">
+                  <i class="fa-solid fa-chevron-right text-gray-700 text-xl"></i>
+                </div>
+
+                <!-- .NET Core -->
+                <div class="flex-1 glass-card p-6 flex flex-col items-center justify-center text-center">
+                  <div class="flex flex-col items-center gap-4">
+                    <span class="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-gray-600">The Turning
+                      Point</span>
+                    <div>
+                      <span
+                        class="block text-4xl font-black text-aulab-cyan italic tracking-tighter leading-none">.NET</span>
+                      <span class="block text-xl font-black text-aulab-cyan italic tracking-tight">Core</span>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed uppercase tracking-wider">2016 · Open
+                      Source<br>Multipiattaforma</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center shrink-0 px-2">
+                  <i class="fa-solid fa-chevron-right text-gray-500 text-xl"></i>
+                </div>
+
+                <!-- .NET Modern -->
+                <div class="flex-1 glass-card p-6 flex flex-col items-center justify-center text-center">
+                  <div class="flex flex-col items-center gap-4">
+                    <span class="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-gray-600">The Future</span>
+                    <div>
+                      <span
+                        class="block text-4xl font-black text-aulab-yellow italic tracking-tighter leading-none">.NET</span>
+                      <span class="block text-xl font-black text-aulab-yellow/70 italic tracking-tight">5 / 6 / 7 /
+                        8+</span>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed uppercase tracking-wider">Unificazione totale<br>Web
+                      · Game · Cloud</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- SECTION 2: COS'È C# E .NET -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-cyan/60">Capitolo 02</span>
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(56,189,248,0.08)]">
+              <i class="fa-solid fa-cube text-7xl text-aulab-cyan"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Cos'è C#</h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">&amp; .NET
+              </h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Definizione, visione e
+              versatilità</p>
+          </div>
+        </section>
+
+        <!-- Slide 02.01: Alto vs Basso Livello -->
+        <section id="high-low-comparison">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                02.01 &mdash; Livelli di astrazione
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+                <!-- Hero Card: Alto Livello -->
+                <div class="col-span-12 glass-card p-8 border-l-4 border-aulab-cyan/50 relative overflow-hidden group">
+                  <div
+                    class="absolute -right-16 -top-16 w-56 h-56 bg-aulab-cyan/5 rounded-full blur-3xl group-hover:bg-aulab-cyan/10 transition-colors duration-500">
+                  </div>
+                  <div class="relative z-10 flex flex-col gap-4">
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="w-11 h-11 rounded-xl bg-aulab-cyan/10 flex items-center justify-center border border-aulab-cyan/20 shrink-0">
+                        <i class="fa-solid fa-arrow-up-from-bracket text-aulab-cyan text-lg"></i>
+                      </div>
+                      <h3 class="text-xl font-black uppercase tracking-tight">Linguaggio ad Alto Livello</h3>
+                    </div>
+                    <p class="text-base text-gray-300 leading-relaxed">
+                      C# è progettato per essere <strong class="text-white font-bold italic">vicino al linguaggio
+                        umano</strong>.
+                      Gestisce automaticamente dettagli complessi come la memoria, permettendo al programmatore di
+                      concentrarsi sulla logica.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Basso Livello -->
+                <div class="col-span-12 glass-card p-8 border-l-4 border-gray-600/50 group">
+                  <div class="relative z-10 flex flex-col gap-4">
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 shrink-0">
+                        <i class="fa-solid fa-microchip text-gray-500 text-lg"></i>
+                      </div>
+                      <h3 class="text-xl font-black uppercase tracking-tight text-gray-500">Vicino alla Macchina</h3>
+                    </div>
+                    <p class="text-base text-gray-500 italic leading-relaxed">
+                      Linguaggi come l'<strong>Assembly</strong> (es. Intel 8086) operano direttamente sui registri
+                      della CPU.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 02.02: Definizione Tecnica -->
+        <section id="technical-definition">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                02.02 &mdash; Definizione Tecnica
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-6 w-full">
+                <!-- Card 1: OOP & Modern -->
+                <div class="glass-card p-10 flex flex-col gap-6 border-t-4 border-aulab-yellow/50">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-11 h-11 rounded-xl bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20 shrink-0">
+                      <i class="fa-solid fa-shapes text-aulab-yellow text-lg"></i>
+                    </div>
+                    <h4 class="text-lg font-black uppercase tracking-tight text-white">Orientato agli Oggetti</h4>
+                  </div>
+                  <div class="w-full h-px bg-white/5"></div>
+                  <p class="text-sm text-gray-400">
+                    Sviluppato da Microsoft per combinare la potenza di C++ con la <strong
+                      class="text-white">produttività di Java</strong>.
+                    Tutto ruota attorno a oggetti e classi.
+                  </p>
+                </div>
+
+                <!-- Card 2: Strongly Typed -->
+                <div class="glass-card p-10 flex flex-col gap-6 border-t-4 border-aulab-cyan/50">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-11 h-11 rounded-xl bg-aulab-cyan/10 flex items-center justify-center border border-aulab-cyan/20 shrink-0">
+                      <i class="fa-solid fa-lock text-aulab-cyan text-lg"></i>
+                    </div>
+                    <h4 class="text-lg font-black uppercase tracking-tight text-white">Fortemente Tipizzato</h4>
+                  </div>
+                  <div class="w-full h-px bg-white/5"></div>
+                  <p class="text-sm text-gray-400">
+                    Garantisce <strong class="text-white">sicurezza e stabilità</strong>: ogni dato ha un tipo definito
+                    e i controlli avvengono prima dell'esecuzione.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 02.03: Ecosistemi -->
+        <section id="ecosystems-overview">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                02.03 &mdash; Ecosistemi di Utilizzo
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+                <!-- Top Hero: Versatilità -->
+                <div
+                  class="col-span-12 glass-card p-10 bg-linear-to-br from-white/[0.08] to-transparent shadow-xl mb-2">
+                  <h3 class="text-2xl font-black italic tracking-tighter mb-4">Un linguaggio, infiniti scenari.</h3>
+                  <p class="text-base text-gray-400">Dalle applicazioni Web al Gaming professionale con Unity.</p>
+                </div>
+
+                <!-- Grid items -->
+                <div
+                  class="col-span-3 glass-card p-6 flex flex-col items-center justify-center gap-4 group hover:border-aulab-yellow transition-all duration-300">
+                  <i
+                    class="fa-solid fa-globe text-3xl text-aulab-yellow/80 group-hover:scale-110 transition-transform"></i>
+                  <p class="text-xs font-bold uppercase tracking-widest text-white">Web &amp; Cloud</p>
+                </div>
+                <div
+                  class="col-span-3 glass-card p-6 flex flex-col items-center justify-center gap-4 group hover:border-aulab-cyan transition-all duration-300">
+                  <i
+                    class="fa-solid fa-gamepad text-3xl text-aulab-cyan/80 group-hover:scale-110 transition-transform"></i>
+                  <p class="text-xs font-bold uppercase tracking-widest text-white">Unity Games</p>
+                </div>
+                <div
+                  class="col-span-3 glass-card p-6 flex flex-col items-center justify-center gap-4 group hover:border-white/40 transition-all duration-300">
+                  <i
+                    class="fa-solid fa-mobile-screen text-3xl text-white/60 group-hover:scale-110 transition-transform"></i>
+                  <p class="text-xs font-bold uppercase tracking-widest text-white">Mobile Apps</p>
+                </div>
+                <div
+                  class="col-span-3 glass-card p-6 flex flex-col items-center justify-center gap-4 group hover:border-aulab-yellow transition-all duration-300">
+                  <i
+                    class="fa-solid fa-desktop text-3xl text-aulab-yellow/80 group-hover:scale-110 transition-transform"></i>
+                  <p class="text-xs font-bold uppercase tracking-widest text-white">Windows Apps</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- SECTION 3: ARCHITETTURA E MEMORIA -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-yellow/60">Capitolo 03</span>
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(255,237,0,0.08)]">
+              <i class="fa-solid fa-gears text-7xl text-aulab-yellow"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Architettura
+              </h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">&amp;
+                Memoria</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Compilazione, Runtime e Garbage
+              Collector</p>
+          </div>
+        </section>
+
+        <!-- Slide 03.01: Il Modello a Doppia Compilazione -->
+        <section id="execution-model">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                03.01 &mdash; Modello di Esecuzione
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="flex items-stretch gap-4 w-full" style="height: 280px;">
+
+                <!-- Fase 1: C# Source -->
+                <div class="flex-1 glass-card flex flex-col items-center justify-center text-center group">
+                  <div class="flex flex-col items-center gap-4">
+                    <span
+                      class="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-gray-600 opacity-0 group-hover:opacity-100 transition-opacity">Compilatore</span>
+                    <div>
+                      <span
+                        class="block text-4xl font-black text-gray-300 italic tracking-tighter leading-none">C#</span>
+                      <span class="block text-xl font-black text-gray-400 italic tracking-tight">Source Code</span>
+                    </div>
+                    <p class="text-xs text-gray-500 leading-relaxed uppercase tracking-wider">Codice
+                      Sorgente<br>Leggibile</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center shrink-0 px-2">
+                  <i class="fa-solid fa-chevron-right text-gray-700 text-xl"></i>
+                </div>
+
+                <!-- Fase 2: IL -->
+                <div
+                  class="flex-1 glass-card border-2 border-aulab-cyan/30 flex flex-col items-center justify-center text-center shadow-[0_0_40px_rgba(56,189,248,0.06)]">
+                  <div class="flex flex-col items-center gap-4">
+                    <span class="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-aulab-cyan">Linguaggio
+                      Intermedio</span>
+                    <div>
+                      <span
+                        class="block text-4xl font-black text-aulab-cyan italic tracking-tighter leading-none">IL</span>
+                      <span class="block text-xl font-black text-aulab-cyan italic tracking-tight">Bytecode</span>
+                    </div>
+                    <p class="text-xs text-gray-400 leading-relaxed uppercase tracking-wider">Indipendente
+                      dalla<br>Piattaforma</p>
+                  </div>
+                </div>
+
+                <div class="flex items-center shrink-0 px-2">
+                  <i class="fa-solid fa-chevron-right text-gray-500 text-xl"></i>
+                </div>
+
+                <!-- Fase 3: Machine Code -->
+                <div class="flex-1 glass-card flex flex-col items-center justify-center text-center">
+                  <div class="flex flex-col items-center gap-4">
+                    <span class="text-[0.6rem] font-bold uppercase tracking-[0.2em] text-gray-600">Runtime (JIT)</span>
+                    <div>
+                      <span
+                        class="block text-4xl font-black text-aulab-yellow italic tracking-tighter leading-none">OS</span>
+                      <span class="block text-xl font-black text-aulab-yellow/70 italic tracking-tight">Native
+                        Code</span>
+                    </div>
+                    <p class="text-xs text-gray-300 leading-relaxed uppercase tracking-wider">Windows · Linux<br>macOS
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 03.02: CLR & JIT -->
+        <section id="clr-jit-details">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                03.02 &mdash; Il CLR (Virtual Machine)
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+
+                <!-- CLR Card -->
+                <div class="col-span-12 glass-card p-8 border-l-4 border-white/10 relative overflow-hidden group">
+                  <div
+                    class="absolute -right-16 -top-16 w-56 h-56 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-colors duration-500">
+                  </div>
+                  <div class="relative z-10 flex flex-col gap-4">
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="w-11 h-11 rounded-xl bg-white/5 flex items-center justify-center border border-white/10 shrink-0">
+                        <i class="fa-solid fa-microchip text-gray-400 text-lg"></i>
+                      </div>
+                      <h3 class="text-xl font-black uppercase tracking-tight">Il CLR (Common Language Runtime)</h3>
+                    </div>
+                    <p class="text-base text-gray-400 leading-relaxed">
+                      È la <strong>Virtual Machine</strong> di .NET. Gestisce l'intero ciclo di vita dell'applicazione:
+                      eccezioni, sicurezza, thread e gestione della memoria.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- JIT Card -->
+                <div class="col-span-12 glass-card p-8 border-l-4 border-aulab-cyan/50 relative overflow-hidden group">
+                  <div
+                    class="absolute -right-16 -top-16 w-56 h-56 bg-aulab-cyan/5 rounded-full blur-3xl group-hover:bg-aulab-cyan/10 transition-colors duration-500">
+                  </div>
+                  <div class="relative z-10 flex flex-col gap-4">
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="w-11 h-11 rounded-xl bg-aulab-cyan/10 flex items-center justify-center border border-aulab-cyan/20 shrink-0">
+                        <i class="fa-solid fa-bolt-lightning text-aulab-cyan text-lg"></i>
+                      </div>
+                      <h3 class="text-xl font-black uppercase tracking-tight">Compilatore JIT (Just-In-Time)</h3>
+                    </div>
+                    <p class="text-base text-gray-400 leading-relaxed">
+                      Traduce l'IL (Intermediate Language) in codice macchina reale <strong class="text-white">solamente
+                        quando serve</strong>, ottimizzando le performance per l'hardware specifico.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 03.03: Garbage Collector -->
+        <section id="garbage-collector">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                03.03 &mdash; Gestione Memoria
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-6 w-full">
+                <!-- GC Mechanism -->
+                <div
+                  class="glass-card p-10 flex flex-col gap-6 group hover:border-aulab-yellow/40 transition-all duration-300">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-11 h-11 rounded-xl bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20 shrink-0">
+                      <i class="fa-solid fa-broom text-aulab-yellow text-lg"></i>
+                    </div>
+                    <h4 class="text-lg font-black uppercase tracking-tight">Garbage Collector</h4>
+                  </div>
+                  <div class="w-full h-px bg-white/5"></div>
+                  <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-aulab-yellow shrink-0"></span>
+                      <span>Individua oggetti <strong class="text-white font-semibold">non più
+                          raggiungibili</strong>.</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-aulab-yellow shrink-0"></span>
+                      <span>Libera la memoria automaticamente (Heap gestito).</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Comparison -->
+                <div class="glass-card p-10 flex flex-col gap-6 border-l-4 border-gray-700/50">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-11 h-11 rounded-xl bg-gray-500/10 flex items-center justify-center border border-gray-500/20 shrink-0">
+                      <i class="fa-solid fa-code-merge text-gray-500 text-lg"></i>
+                    </div>
+                    <h4 class="text-lg font-black uppercase tracking-tight text-white">Addio manuale</h4>
+                  </div>
+                  <div class="w-full h-px bg-white/5"></div>
+                  <p class="text-sm text-gray-400 leading-relaxed">
+                    A differenza di C++, non dobbiamo usare <code class="text-aulab-yellow">free()</code> o <code
+                      class="text-aulab-yellow">delete</code>.
+                    Il GC previene memory leaks e dangling pointers.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 03.04: Heap Generazionale -->
+        <section id="generational-heap">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                03.04 &mdash; Heap Generazionale
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+                <!-- Info text -->
+                <div class="col-span-12 glass-card p-8 mb-2">
+                  <p class="text-base text-gray-400">L'Heap è diviso in <strong class="text-white">tre
+                      generazioni</strong> basate sull'idea che gli oggetti nuovi muoiano presto.</p>
+                </div>
+
+                <!-- Gen 0 -->
+                <div class="col-span-4 glass-card p-6 border-t-4 border-aulab-cyan/50 text-center">
+                  <h4 class="text-xs font-black uppercase tracking-[0.2em] mb-4 text-aulab-cyan">Gen 0</h4>
+                  <p class="text-xs text-gray-500">Oggetti appena creati (Short-lived).</p>
+                </div>
+
+                <!-- Gen 1 -->
+                <div class="col-span-4 glass-card p-6 border-t-4 border-white/20 text-center">
+                  <h4 class="text-xs font-black uppercase tracking-[0.2em] mb-4 text-white/60">Gen 1</h4>
+                  <p class="text-xs text-gray-500">Buffer tra oggetti nuovi e longevi.</p>
+                </div>
+
+                <!-- Gen 2 -->
+                <div class="col-span-4 glass-card p-6 border-t-4 border-aulab-yellow/50 text-center">
+                  <h4 class="text-xs font-black uppercase tracking-[0.2em] mb-4 text-aulab-yellow">Gen 2</h4>
+                  <p class="text-xs text-gray-500">Oggetti a lungo termine (Long-lived).</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- SECTION 4: PARADIGMI E PERFORMANCE -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-cyan/60">Capitolo 04</span>
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(56,189,248,0.08)]">
+              <i class="fa-solid fa-bolt text-7xl text-aulab-cyan"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Paradigmi</h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">&amp;
+                Performance</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Multiparadigma, Developer
+              Experience e Velocità</p>
+          </div>
+        </section>
+
+        <!-- Slide 04.01: Multiparadigma -->
+        <section id="paradigms">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                04.01 &mdash; Più di un Linguaggio OOP
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+                <!-- OOP Base -->
+                <div class="col-span-12 glass-card p-10 flex items-center gap-10 group">
+                  <div
+                    class="w-20 h-20 rounded-2xl bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20 shrink-0">
+                    <i class="fa-solid fa-sitemap text-3xl text-aulab-yellow"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-black uppercase mb-2">Fondamentalmente OOP</h3>
+                    <p class="text-gray-400 text-sm">Classi, interfacce, ereditarietà e incapsulamento come pilastri
+                      centrali.</p>
+                  </div>
+                </div>
+
+                <!-- Functional + Modern -->
+                <div class="col-span-6 glass-card border-t-4 border-aulab-cyan/50 p-10 group">
+                  <div class="flex items-center gap-4 mb-4">
+                    <i class="fa-solid fa-code text-aulab-cyan text-xl"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white">Anima Funzionale</h4>
+                  </div>
+                  <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-aulab-cyan"></span>
+                      <span>Espressioni <strong>LINQ</strong> per query potenti.</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-aulab-cyan"></span>
+                      <span><strong>Lambda</strong> e Pattern Matching.</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="col-span-6 glass-card border-t-4 border-white/20 p-10 group">
+                  <div class="flex items-center gap-4 mb-4">
+                    <i class="fa-solid fa-clock-rotate-left text-gray-400 text-xl"></i>
+                    <h4 class="text-sm font-black uppercase tracking-widest text-white">Modern Async</h4>
+                  </div>
+                  <p class="text-xs text-gray-500 leading-relaxed">
+                    Il modello <strong>Async/Await</strong> è nato in C# ed è ora lo standard de facto per gestire
+                    l'asincronia in modo leggibile.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 04.02: C# vs Java -->
+        <section id="cs-vs-java">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                04.02 &mdash; C# vs Java
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-6 w-full">
+                <!-- Java Side -->
+                <div class="glass-card flex flex-col gap-6 opacity-60">
+                  <div class="flex items-center gap-4">
+                    <i class="fa-brands fa-java text-4xl text-gray-400"></i>
+                    <h4 class="text-lg font-black uppercase text-gray-400">Java</h4>
+                  </div>
+                  <div class="h-px bg-white/5"></div>
+                  <ul class="space-y-4 filter grayscale">
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <i class="fa-solid fa-xmark text-red-900"></i>
+                      <span>Spesso considerato verboso.</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <i class="fa-solid fa-xmark text-red-900"></i>
+                      <span>Generic implementation (Erasure).</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- C# Side -->
+                <div
+                  class="glass-card flex flex-col gap-6 border-l-4 border-aulab-yellow shadow-[0_0_40px_rgba(255,237,0,0.05)]">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-12 h-12 rounded-xl bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20">
+                      <span class="text-2xl font-black text-aulab-yellow italic">C#</span>
+                    </div>
+                    <h4 class="text-lg font-black uppercase text-white">C#</h4>
+                  </div>
+                  <div class="h-px bg-white/5"></div>
+                  <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <i class="fa-solid fa-check text-aulab-yellow"></i>
+                      <span>Sintassi compatta e moderna.</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <i class="fa-solid fa-check text-aulab-yellow"></i>
+                      <span>Generics reali a Runtime.</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <i class="fa-solid fa-check text-aulab-yellow"></i>
+                      <span>Evoluzione costante (aggiornamenti annuali).</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 04.03: Performance -->
+        <section id="performance-bench">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                04.03 &mdash; Performance &amp; Portabilità
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+                <!-- Speed Hero -->
+                <div
+                  class="col-span-12 glass-card p-12 relative overflow-hidden flex items-center justify-between group">
+                  <div class="absolute inset-0 bg-linear-to-r from-aulab-cyan/5 to-transparent"></div>
+                  <div class="relative z-10 max-w-xl">
+                    <h3 class="text-3xl font-black uppercase italic tracking-tighter mb-4">Veloce come il C++?</h3>
+                    <p class="text-sm text-gray-400 leading-relaxed">
+                      Nelle ultime versioni (.NET 8+), C# si avvicina incredibilmente al metallo grazie a
+                      <strong>PGO dinamico</strong> e ottimizzazioni hardware native.
+                    </p>
+                  </div>
+                  <!-- Visualization placeholder -->
+                  <div class="relative z-10 flex gap-2 items-end h-24">
+                    <div class="w-4 bg-gray-700 rounded-t h-[90%]"></div>
+                    <div class="w-4 bg-aulab-yellow rounded-t h-[95%] shadow-[0_0_20px_rgba(255,237,0,0.4)]"></div>
+                    <div class="w-4 bg-aulab-cyan rounded-t h-full"></div>
+                  </div>
+                </div>
+
+                <!-- Multi-platform -->
+                <div class="col-span-12 glass-card flex items-center gap-8 py-6 px-10">
+                  <div class="flex items-center gap-6">
+                    <i class="fa-brands fa-linux text-2xl text-gray-500"></i>
+                    <i class="fa-brands fa-apple text-2xl text-gray-500"></i>
+                    <i class="fa-brands fa-windows text-2xl text-gray-500"></i>
+                  </div>
+                  <div class="w-px h-8 bg-white/10"></div>
+                  <p class="text-[0.65rem] font-bold uppercase tracking-widest text-gray-400">
+                    Un unico codice, esecuzione nativa su ogni piattaforma.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+      <!-- SECTION 5: TYPE SYSTEM -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-yellow/60">Capitolo 05</span>
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(255,237,0,0.08)]">
+              <i class="fa-solid fa-tags text-7xl text-aulab-yellow"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Type</h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">System</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Regole, Verifiche e Sicurezza
+              dei Dati</p>
+          </div>
+        </section>
+
+        <!-- Slide 05.01: Static vs Dynamic -->
+        <section id="static-vs-dynamic">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                05.01 &mdash; Quando avviene il controllo?
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-6 w-full">
+                <!-- Static Check -->
+                <div class="glass-card flex flex-col gap-6 group border-t-4 border-aulab-yellow/50">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-11 h-11 rounded-xl bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20 shrink-0">
+                      <i class="fa-solid fa-code text-aulab-yellow text-lg"></i>
+                    </div>
+                    <h4 class="text-lg font-black uppercase tracking-tight">Controllo Statico</h4>
+                  </div>
+                  <div class="h-px bg-white/5"></div>
+                  <p class="text-sm text-gray-400">
+                    Il controllo avviene a <strong class="text-white">Compile Time</strong>. Il compilatore verifica
+                    coerenza
+                    tra variabili, funzioni e operazioni prima dell'esecuzione.
+                  </p>
+                  <span class="text-[0.6rem] font-bold uppercase tracking-widest text-aulab-yellow/40">Massima
+                    Affidabilità</span>
+                </div>
+
+                <!-- Dynamic Check -->
+                <div class="glass-card flex flex-col gap-6 group border-t-4 border-aulab-cyan/50 opacity-80">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-11 h-11 rounded-xl bg-aulab-cyan/10 flex items-center justify-center border border-aulab-cyan/20 shrink-0">
+                      <i class="fa-solid fa-play text-aulab-cyan text-lg"></i>
+                    </div>
+                    <h4 class="text-lg font-black uppercase tracking-tight">Controllo Dinamico</h4>
+                  </div>
+                  <div class="h-px bg-white/5"></div>
+                  <p class="text-sm text-gray-400">
+                    Il controllo avviene a <strong class="text-white">Runtime</strong> (tramite <code>dynamic</code> o
+                    Reflection).
+                    C# ispeziona il tipo dell'oggetto mentre il programma gira.
+                  </p>
+                  <span class="text-[0.6rem] font-bold uppercase tracking-widest text-aulab-cyan/40">Flessibilità
+                    Avanzata</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 05.02: Strong vs Weak -->
+        <section id="strong-vs-weak">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                05.02 &mdash; Rigore vs Flessibilità
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+                <!-- Tipizzazione Forte -->
+                <div
+                  class="col-span-12 glass-card p-10 border-l-4 border-aulab-yellow/50 relative overflow-hidden group">
+                  <div
+                    class="absolute -right-16 -top-16 w-56 h-56 bg-aulab-yellow/5 rounded-full blur-3xl group-hover:bg-aulab-yellow/10 transition-colors duration-500">
+                  </div>
+                  <div class="relative z-10 flex flex-col gap-6">
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="w-11 h-11 rounded-xl bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20 shrink-0">
+                        <i class="fa-solid fa-lock text-aulab-yellow text-lg"></i>
+                      </div>
+                      <h3 class="text-xl font-black uppercase tracking-tight">Tipizzazione Forte</h3>
+                    </div>
+                    <div class="w-full h-px bg-white/5"></div>
+                    <ul class="grid grid-cols-2 gap-x-12 gap-y-4">
+                      <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-aulab-yellow shrink-0"></span>
+                        <span>Tipi dichiarati <strong class="text-white">esplicitamente</strong></span>
+                      </li>
+                      <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-aulab-yellow shrink-0"></span>
+                        <span>Tipi di ritorno <strong class="text-white">obbligatori</strong></span>
+                      </li>
+                      <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-aulab-yellow shrink-0"></span>
+                        <span>Parametri con <strong class="text-white">tipo fisso</strong></span>
+                      </li>
+                      <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                        <span class="w-1.5 h-1.5 rounded-full bg-aulab-yellow shrink-0"></span>
+                        <span>NO conversioni implicite <strong class="text-white italic">pericolose</strong></span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- Tipizzazione Debole -->
+                <div
+                  class="col-span-12 glass-card p-10 border-l-4 border-gray-700/50 relative overflow-hidden group opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                  <div class="relative z-10 flex flex-col gap-4">
+                    <div class="flex items-center gap-4">
+                      <div
+                        class="w-11 h-11 rounded-xl bg-gray-500/10 flex items-center justify-center border border-gray-500/20 shrink-0">
+                        <i class="fa-solid fa-unlock text-gray-500 text-lg"></i>
+                      </div>
+                      <h3 class="text-xl font-black uppercase tracking-tight text-gray-500">Tipizzazione Debole</h3>
+                    </div>
+                    <p class="text-sm text-gray-500 leading-relaxed italic">
+                      I tipi possono cambiare nel tempo e il linguaggio effettua conversioni automatiche (es. <strong
+                        class="text-gray-400">JavaScript</strong>).
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 05.03: Il verdetto su C# -->
+        <section id="cs-verdict">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                05.03 &mdash; Il Verdetto
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center justify-center">
+              <div class="text-center relative w-full flex flex-col items-center" style="gap: 0">
+                <!-- Glow -->
+                <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <div class="w-[700px] h-[400px] bg-aulab-yellow/5 rounded-full blur-[120px]"></div>
+                </div>
+
+                <!-- Eyebrow -->
+                <div class="flex items-center justify-center gap-5 relative" style="margin-bottom: 3rem">
+                  <span class="block w-20 h-px bg-aulab-yellow/30"></span>
+                  <span class="text-[0.6rem] font-bold uppercase tracking-[0.4em] text-aulab-yellow/50">C# è un linguaggio a</span>
+                  <span class="block w-20 h-px bg-aulab-yellow/30"></span>
+                </div>
+
+                <!-- Ghost word -->
+                <div class="text-[2rem] font-black text-white/15 uppercase tracking-[0.2em] leading-none select-none" style="margin-bottom: 1rem">
+                  Tipizzazione
+                </div>
+
+                <!-- Hero -->
+                <div class="text-[6.5rem] font-black text-gradient leading-none tracking-[-0.04em] uppercase">
+                  Forte e Statica
+                </div>
+
+                <!-- Separator -->
+                <div class="flex items-center justify-center gap-3" style="margin-top: 2.5rem">
+                  <span class="block h-px w-28 bg-white/10"></span>
+                  <span class="w-1 h-1 rounded-full bg-aulab-yellow/40"></span>
+                  <span class="block h-px w-28 bg-white/10"></span>
+                </div>
+
+                <!-- Caption -->
+                <div class="text-gray-500 tracking-wide" style="margin-top: 2rem; font-size: 0.75rem; font-weight: 500">
+                  Come <strong class="text-gray-400">Java</strong>, garantisce robustezza rilevando gli errori prima che l'app venga avviata
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+      <!-- SECTION 6: MODELLO DI COMPILAZIONE -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-cyan/60">Capitolo 06</span>
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(0,183,212,0.08)]">
+              <i class="fa-solid fa-gears text-7xl text-aulab-cyan"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Modello di
+              </h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">
+                Compilazione</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Compilati, Interpretati e
+              l'Approccio .NET</p>
+          </div>
+        </section>
+
+        <!-- Slide 06.01: I Linguaggi Compilati -->
+        <section id="compiled-languages">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                06.01 &mdash; Linguaggi Compilati (es. C, C++)
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+                <!-- Hero: The Workflow -->
+                <div class="col-span-8 glass-card p-10 flex flex-col justify-center border-l-4 border-aulab-yellow">
+                  <h3 class="text-xl font-black uppercase mb-4 tracking-tight">Traduzione Totale</h3>
+                  <p class="text-sm text-gray-400 leading-relaxed mb-6">
+                    Tutto il codice viene tradotto in binario <strong class="text-white">prima</strong> dell'esecuzione.
+                    Il risultato è un file eseguibile pronto per il processore.
+                  </p>
+                  <div class="flex items-center gap-4 text-xs font-bold text-aulab-yellow uppercase tracking-widest" style="margin-top: 1.5rem">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Massima Efficienza a Runtime</span>
+                  </div>
+                </div>
+
+                <!-- Alert: Error handling -->
+                <div
+                  class="col-span-4 glass-card p-10 flex flex-col justify-center bg-red-500/5 border-red-500/20 group">
+                  <div
+                    class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20 mb-4 group-hover:bg-red-500/20 transition-colors">
+                    <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
+                  </div>
+                  <h4 class="text-xs font-black uppercase text-red-500 mb-2">Blocco Totale</h4>
+                  <p class="text-[0.65rem] text-gray-500 leading-tight">
+                    Dimentichi un ";"? <br>
+                    <strong>La compilazione fallisce.</strong> <br>
+                    Niente eseguibile finché tutto non è perfetto.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 06.02: I Linguaggi Interpretati -->
+        <section id="interpreted-languages">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                06.02 &mdash; Linguaggi Interpretati (es. JS, Python)
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+                <!-- Main card -->
+                <div class="col-span-8 glass-card p-10 flex flex-col justify-center border-l-4 border-aulab-cyan">
+                  <h3 class="text-xl font-black uppercase mb-4 tracking-tight">Traduzione in Tempo Reale</h3>
+                  <p class="text-sm text-gray-400 leading-relaxed">
+                    Il codice viene letto, tradotto ed eseguito <strong class="text-white">riga per riga</strong>
+                    durante l'esecuzione. Non esiste un file eseguibile preventivo.
+                  </p>
+                  <div class="flex items-center gap-4 text-xs font-bold text-aulab-cyan uppercase tracking-widest" style="margin-top: 1.5rem">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <span>Flessibile e Immediato da Eseguire</span>
+                  </div>
+                </div>
+
+                <!-- Side card -->
+                <div class="col-span-4 glass-card p-10 flex flex-col justify-center bg-red-500/5 border-red-500/20 group">
+                  <div class="w-12 h-12 rounded-xl bg-red-500/10 flex items-center justify-center border border-red-500/20 group-hover:bg-red-500/20 transition-colors" style="margin-bottom: 1rem">
+                    <i class="fa-solid fa-triangle-exclamation text-red-500"></i>
+                  </div>
+                  <h4 class="text-xs font-black uppercase text-red-500 tracking-widest" style="margin-bottom: 0.5rem">Fragilità a Runtime</h4>
+                  <p class="text-[0.65rem] text-gray-500 leading-tight">
+                    L'esecuzione continua finché non trova l'errore. <br>
+                    <strong>Ciò che sta "sotto" non viene mai eseguito.</strong>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 06.03: Il modello C# / .NET -->
+        <section id="cs-intermediate-model">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                06.03 &mdash; C#: Il Modello Intermedio
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center justify-center">
+              <div class="grid grid-cols-3 gap-8 w-full">
+
+                <!-- Phase 1 -->
+                <div class="flex flex-col items-center text-center gap-6 group">
+                  <div
+                    class="w-20 h-20 glass-card flex items-center justify-center group-hover:scale-110 transition-transform duration-500">
+                    <i class="fa-solid fa-code text-3xl text-gray-400"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-[0.6rem] font-black uppercase tracking-[0.2em] text-aulab-yellow mb-2">Fase 1</h4>
+                    <p class="text-xs text-gray-500">Compilazione in <strong>IL</strong> (Intermediate Language)</p>
+                  </div>
+                </div>
+
+                <!-- Arrow -->
+                <div class="flex items-center justify-center text-gray-700">
+                  <i class="fa-solid fa-arrow-right-long text-4xl"></i>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="flex flex-col items-center text-center gap-6 group">
+                  <div
+                    class="w-20 h-20 glass-card border-2 border-aulab-cyan flex items-center justify-center shadow-[0_0_40px_rgba(56,189,248,0.2)] group-hover:scale-110 transition-transform duration-500">
+                    <i class="fa-solid fa-bolt-lightning text-3xl text-aulab-cyan"></i>
+                  </div>
+                  <div>
+                    <h4 class="text-[0.6rem] font-black uppercase tracking-[0.2em] text-aulab-cyan mb-2">Fase 2</h4>
+                    <p class="text-xs text-gray-500">JIT Traduce in <strong>codice macchina</strong> all'avvio</p>
+                  </div>
+                </div>
+
+                <div class="col-span-3 mt-8 glass-card p-6 border-white/5 text-center">
+                  <p class="text-sm text-gray-400 italic">
+                    "C# non è né puramente compilato né puramente interpretato. Si dice <strong>compilato in modo
+                      intermedio</strong>."
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+      <!-- SECTION 7: HELLOWORLD E AMBIENTE -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-yellow/60">Capitolo 07</span>
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(255,237,0,0.08)]">
+              <i class="fa-solid fa-terminal text-7xl text-aulab-yellow"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">HelloWorld
+              </h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">&amp;
+                Ambiente</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Primi Passi: SDK ed
+              Inizializzazione</p>
+          </div>
+        </section>
+
+        <!-- Slide 07.01: L'Ambiente .NET -->
+        <section id="environment-setup">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                07.01 &mdash; Preparare l'SDK
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+                <!-- Hero: SDK -->
+                <div class="col-span-12 glass-card p-10 flex items-center gap-10 group">
+                  <div
+                    class="w-20 h-20 rounded-2xl bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20 shrink-0">
+                    <i class="fa-solid fa-download text-3xl text-aulab-yellow"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-black uppercase mb-1">Scaricare .NET 8 (LTS)</h3>
+                    <p class="text-gray-400 text-sm">
+                      L'ambiente moderno è unificato. Non serve più distinguere tra Core e Framework.
+                      Basta l'<strong>SDK</strong> ufficiale scelto per il proprio OS.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Three pillars -->
+                <div class="col-span-4 glass-card text-center p-6 border-t-2 border-aulab-cyan/30">
+                  <h4 class="text-xs font-black uppercase tracking-widest text-aulab-cyan mb-2">SDK</h4>
+                  <p class="text-[0.6rem] text-gray-500 uppercase">Compilatore e Tool di sviluppo</p>
+                </div>
+                <div class="col-span-4 glass-card text-center p-6 border-t-2 border-white/10">
+                  <h4 class="text-xs font-black uppercase tracking-widest text-white/60 mb-2">Runtime</h4>
+                  <p class="text-[0.6rem] text-gray-500 uppercase">Permette l'esecuzione dell'app</p>
+                </div>
+                <div class="col-span-4 glass-card text-center p-6 border-t-2 border-aulab-yellow/30">
+                  <h4 class="text-xs font-black uppercase tracking-widest text-aulab-yellow mb-2">CLI</h4>
+                  <p class="text-[0.6rem] text-gray-500 uppercase">Interfaccia a riga di comando</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 07.02: Creazione CLI -->
+        <section id="project-creation-cli">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                07.02 &mdash; Creazione via Command Line
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-6 w-full">
+                <!-- Theory -->
+                <div class="glass-card flex flex-col gap-6 p-10">
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-10 h-10 rounded-lg bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20">
+                      <i class="fa-solid fa-folder-tree text-aulab-yellow"></i>
+                    </div>
+                    <h4 class="text-lg font-black uppercase">Solution vs Project</h4>
+                  </div>
+                  <p class="text-sm text-gray-400">
+                    Un file <strong>.sln</strong> è il contenitore madre che raggruppa uno o più progetti
+                    <strong>.csproj</strong>.
+                  </p>
+                  <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <i class="fa-solid fa-check text-aulab-yellow"></i>
+                      Organizza le configurazioni di build.
+                    </li>
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <i class="fa-solid fa-check text-aulab-yellow"></i>
+                      Coordina il Debug tra più componenti.
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Code/Interactive -->
+                <div class="glass-card bg-black/40 border-white/5 terminal-card">
+                  <span class="terminal-card-title">Workflow Terminale</span>
+
+                  <div class="terminal-step">
+                    <div class="terminal-step-label">
+                      <span class="terminal-step-badge">1</span>
+                      <span class="terminal-step-name">Crea Solution</span>
+                    </div>
+                    <div class="terminal-step-code">dotnet new sln -n SpecNet</div>
+                  </div>
+
+                  <div class="terminal-step">
+                    <div class="terminal-step-label">
+                      <span class="terminal-step-badge">2</span>
+                      <span class="terminal-step-name">Crea Progetto Console</span>
+                    </div>
+                    <div class="terminal-step-code">dotnet new console -n ConsoleApp</div>
+                  </div>
+
+                  <div class="terminal-step">
+                    <div class="terminal-step-label">
+                      <span class="terminal-step-badge">3</span>
+                      <span class="terminal-step-name">Collega i Pezzi</span>
+                    </div>
+                    <div class="terminal-step-code">dotnet sln SpecNet.sln add …</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 07.03: VS Code Mastery -->
+        <section id="project-creation-vscode">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                07.03 &mdash; Integrazione con VS Code
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-6 w-full">
+
+                <!-- Theory card -->
+                <div class="glass-card flex flex-col gap-6 border-l-4 border-aulab-yellow">
+                  <div class="flex items-center gap-4">
+                    <div class="w-10 h-10 rounded-lg bg-aulab-yellow/10 flex items-center justify-center border border-aulab-yellow/20">
+                      <i class="fa-solid fa-keyboard text-aulab-yellow"></i>
+                    </div>
+                    <h4 class="text-lg font-black uppercase">Il Metodo Veloce</h4>
+                  </div>
+                  <p class="text-sm text-gray-400">
+                    Usa l'estensione <strong class="text-white">C# Dev Kit</strong> per creare e gestire progetti direttamente da VS Code, senza usare il terminale.
+                  </p>
+                  <ul class="space-y-4">
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-aulab-yellow shrink-0"></span>
+                      <span>Gestione grafica di solution e progetti</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-[12pt] text-gray-400">
+                      <span class="w-1.5 h-1.5 rounded-full bg-aulab-yellow shrink-0"></span>
+                      <span>Integrazione con debugger e IntelliSense</span>
+                    </li>
+                  </ul>
+                </div>
+
+                <!-- Terminal card -->
+                <div class="glass-card bg-black/40 border-white/5 terminal-card">
+                  <span class="terminal-card-title">Workflow VS Code</span>
+
+                  <div class="terminal-step">
+                    <div class="terminal-step-label">
+                      <span class="terminal-step-badge">1</span>
+                      <span class="terminal-step-name">Apri Command Palette</span>
+                    </div>
+                    <div class="terminal-step-code">Ctrl + Shift + P</div>
+                  </div>
+
+                  <div class="terminal-step">
+                    <div class="terminal-step-label">
+                      <span class="terminal-step-badge">2</span>
+                      <span class="terminal-step-name">Cerca il comando</span>
+                    </div>
+                    <div class="terminal-step-code">.NET: New Project...</div>
+                  </div>
+
+                  <div class="terminal-step">
+                    <div class="terminal-step-label">
+                      <span class="terminal-step-badge">3</span>
+                      <span class="terminal-step-name">Segui il wizard</span>
+                    </div>
+                    <div class="terminal-step-code">Configura nome, tipo e percorso</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+      <!-- SECTION 8: SINTASSI E COMMENTI -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-cyan/60">Capitolo 08</span>
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(0,183,212,0.08)]">
+              <i class="fa-solid fa-code text-7xl text-aulab-cyan"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Sintassi</h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">&amp;
+                Commenti</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Program.cs, Struttura e
+              Documentazione</p>
+          </div>
+        </section>
+
+        <!-- Slide 08.01: Anatomia del Codice -->
+        <section id="code-anatomy">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                08.01 &mdash; Anatomia di un Programma
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-8 w-full">
+                <!-- Code Block — IDE style -->
+                <div class="col-span-12 ide-block">
+                  <div class="ide-titlebar">
+                    <div class="ide-traffic-lights">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <div class="ide-tab">
+                      <i class="fa-solid fa-file-code tok-keyword" style="font-size:0.6rem"></i>
+                      Program.cs
+                    </div>
+                    <div style="width:3.5rem"></div>
+                  </div>
+                  <div class="ide-body">
+                    <div class="ide-gutter">
+                      <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div>
+                    </div>
+                    <div class="ide-code">
+                      <div><span class="tok-keyword">class</span> <span class="tok-type">HelloWorld</span></div>
+                      <div>{</div>
+                      <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-keyword">static void</span> <span class="tok-fn">Main</span>(<span class="tok-keyword">string</span>[] <span class="tok-param">args</span>)</div>
+                      <div>&nbsp;&nbsp;&nbsp;&nbsp;{</div>
+                      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-comment">// Questo è il punto di ingresso</span></div>
+                      <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-type">Console</span>.<span class="tok-fn">WriteLine</span>(<span class="tok-string">"Ciao Mondo!"</span>);</div>
+                      <div>&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+                      <div>}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Explanation Cards -->
+                <div class="col-span-4 glass-card p-6 border-t-2 border-aulab-yellow/40">
+                  <h4 class="text-xs font-black uppercase text-white mb-2 italic">Class</h4>
+                  <p class="text-[0.65rem] text-gray-500">Il contenitore principale. Tutto il codice C# vive in una
+                    classe.</p>
+                </div>
+                <div class="col-span-4 glass-card p-6 border-t-2 border-aulab-cyan/40">
+                  <h4 class="text-xs font-black uppercase text-white mb-2 italic">Main Method</h4>
+                  <p class="text-[0.65rem] text-gray-500">Entry point dell'app. Il programma parte sempre da qui.</p>
+                </div>
+                <div class="col-span-4 glass-card p-6 border-t-2 border-white/10">
+                  <h4 class="text-xs font-black uppercase text-white mb-2 italic">Console</h4>
+                  <p class="text-[0.65rem] text-gray-500">Classe System per gestire input e output da terminale.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 08.02: Struttura Folder -->
+        <section id="project-folders">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                08.02 &mdash; Cosa c'è nella cartella?
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-10 w-full">
+                <!-- Left: file cards -->
+                <div class="flex flex-col" style="gap: 1.5rem">
+                  <div class="glass-card flex items-center gap-6 p-6 group hover:translate-x-2 transition-transform">
+                    <i class="fa-solid fa-file-code text-aulab-yellow text-2xl"></i>
+                    <div>
+                      <h4 class="text-sm font-black text-white">.csproj</h4>
+                      <p class="text-[0.65rem] text-gray-500 uppercase font-bold tracking-widest">Configurazione</p>
+                    </div>
+                  </div>
+                  <div class="glass-card flex items-center gap-6 p-6 group hover:translate-x-2 transition-transform">
+                    <i class="fa-solid fa-folder-open text-aulab-cyan text-2xl"></i>
+                    <div>
+                      <h4 class="text-sm font-black text-white">bin / obj</h4>
+                      <p class="text-[0.65rem] text-gray-500 uppercase font-bold tracking-widest">Compilazione &amp; Temp</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right: build & run -->
+                <div class="glass-card border-l-4 border-white/10 flex flex-col justify-center" style="gap: 1rem">
+                  <h3 class="text-2xl font-black uppercase tracking-tighter text-gradient">Build &amp; Run</h3>
+                  <p class="text-sm text-gray-400 leading-relaxed">
+                    Essendo compilato, dobbiamo trasformare il sorgente in eseguibile:
+                  </p>
+                  <div class="terminal-card" style="gap: 0.75rem">
+                    <div class="terminal-step">
+                      <div class="terminal-step-label">
+                        <span class="terminal-step-badge">1</span>
+                        <span class="terminal-step-name">Compila</span>
+                      </div>
+                      <div class="terminal-step-code">dotnet build</div>
+                    </div>
+                    <div class="terminal-step">
+                      <div class="terminal-step-label">
+                        <span class="terminal-step-badge">2</span>
+                        <span class="terminal-step-name">Esegui</span>
+                      </div>
+                      <div class="terminal-step-code">dotnet run</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 08.03: I Commenti -->
+        <section id="code-comments">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                08.03 &mdash; Commentare con stile
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-3 gap-6 w-full">
+
+                <!-- Commento riga -->
+                <div class="flex flex-col" style="gap: 0.75rem">
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab"><i class="fa-solid fa-file-code tok-keyword" style="font-size:0.55rem"></i> Program.cs</div>
+                      <div style="width:3rem"></div>
+                    </div>
+                    <div class="ide-body" style="font-size: 1rem !important">
+                      <div class="ide-gutter" style="font-size: 1rem !important"><div>1</div><div>2</div><div>3</div></div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">static void</span> <span class="tok-fn">Main</span>()</div>
+                        <div><span class="tok-comment">// Questo è un commento</span></div>
+                        <div><span class="tok-type">Console</span>.<span class="tok-fn">WriteLine</span>(<span class="tok-string">"Hi"</span>);</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="glass-card p-5 border-t-2 border-aulab-yellow/50">
+                    <h4 class="text-xs font-black uppercase text-white" style="margin-bottom:0.3rem">Per riga</h4>
+                    <div class="tok-comment" style="font-family:monospace; font-size:0.75rem">// testo</div>
+                  </div>
+                </div>
+
+                <!-- Commento blocco -->
+                <div class="flex flex-col" style="gap: 0.75rem">
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab"><i class="fa-solid fa-file-code tok-keyword" style="font-size:0.55rem"></i> Program.cs</div>
+                      <div style="width:3rem"></div>
+                    </div>
+                    <div class="ide-body" style="font-size: 1rem !important">
+                      <div class="ide-gutter" style="font-size: 1rem !important"><div>1</div><div>2</div><div>3</div></div>
+                      <div class="ide-code">
+                        <div><span class="tok-comment">/* Commento</span></div>
+                        <div><span class="tok-comment">&nbsp;&nbsp; su più righe */</span></div>
+                        <div><span class="tok-keyword">int</span> <span class="tok-param">x</span> = 10;</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="glass-card p-5 border-t-2 border-aulab-cyan/50">
+                    <h4 class="text-xs font-black uppercase text-white" style="margin-bottom:0.3rem">Per blocco</h4>
+                    <div class="tok-comment" style="font-family:monospace; font-size:0.75rem">/* testo */</div>
+                  </div>
+                </div>
+
+                <!-- Commento doc -->
+                <div class="flex flex-col" style="gap: 0.75rem">
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab"><i class="fa-solid fa-file-code tok-keyword" style="font-size:0.55rem"></i> Program.cs</div>
+                      <div style="width:3rem"></div>
+                    </div>
+                    <div class="ide-body" style="font-size: 1rem !important">
+                      <div class="ide-gutter" style="font-size: 1rem !important"><div>1</div><div>2</div><div>3</div></div>
+                      <div class="ide-code">
+                        <div><span class="tok-comment">/// &lt;summary&gt;</span></div>
+                        <div><span class="tok-comment">/// Descrizione metodo</span></div>
+                        <div><span class="tok-comment">/// &lt;/summary&gt;</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="glass-card p-5 border-t-2 border-white/20">
+                    <h4 class="text-xs font-black uppercase text-white" style="margin-bottom:0.3rem">Documentazione</h4>
+                    <div class="tok-comment" style="font-family:monospace; font-size:0.75rem">/// XML Doc</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+      <!-- SECTION 9: TIPI DI DATO ED ENUMERAZIONI -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-yellow/60">Capitolo 09</span>
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(255,237,0,0.08)]">
+              <i class="fa-solid fa-list-ol text-7xl text-aulab-yellow"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Tipi di</h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">Dato</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Primitivi, Costanti ed
+              Enumerazioni</p>
+          </div>
+        </section>
+
+        <!-- Slide 09.01: Interi e Decimali -->
+        <section id="data-types-numeric">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                09.01 &mdash; Numeri: Interi e Reali
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-6 w-full items-start">
+
+                <!-- Interi (Puri) -->
+                <div class="flex flex-col gap-3">
+                  <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,237,0,0.7)">
+                    Interi (Puri)
+                  </div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:1rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:1rem !important; line-height:2">1<br>2<br>3<br>4</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">int</span> <span class="tok-param">myInt</span> = 42; <span class="tok-comment">// 4 bytes &mdash; default</span></div>
+                        <div><span class="tok-keyword">long</span> <span class="tok-param">myLong</span> = 4_000_000L; <span class="tok-comment">// 8 bytes</span></div>
+                        <div><span class="tok-keyword">short</span> <span class="tok-param">myShort</span> = 100; <span class="tok-comment">// 2 bytes</span></div>
+                        <div><span class="tok-keyword">byte</span> <span class="tok-param">myByte</span> = 255; <span class="tok-comment">// 1 byte</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Decimali (Floating) -->
+                <div class="flex flex-col gap-3">
+                  <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(56,189,248,0.7)">
+                    Decimali (Floating)
+                  </div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:1rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:1rem !important; line-height:2">1<br>2<br>3</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">double</span> <span class="tok-param">myDouble</span> = 3.14; <span class="tok-comment">// 15 cifre &mdash; default</span></div>
+                        <div><span class="tok-keyword">float</span> <span class="tok-param">myFloat</span> = 3.14f; <span class="tok-comment">// 7 cifre</span></div>
+                        <div><span class="tok-keyword">decimal</span> <span class="tok-param">price</span> = 9.99m; <span class="tok-comment">// 28 cifre &mdash; moneta</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 09.02: Char, Bool e Literals -->
+        <section id="char-bool-literals">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                09.02 &mdash; Caratteri, Verità e Notazioni
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-5 w-full">
+
+                <!-- Char -->
+                <div class="col-span-8 flex flex-col gap-3">
+                  <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,237,0,0.7)">
+                    Char &mdash; Carattere Singolo
+                  </div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:1rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:1rem !important; line-height:2">1<br>2</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">char</span> <span class="tok-param">myChar</span> = <span class="tok-string">'a'</span>; <span class="tok-comment">// singolo carattere — apici singoli</span></div>
+                        <div><span class="tok-keyword">string</span> <span class="tok-param">myStr</span> = <span class="tok-string">"hello"</span>; <span class="tok-comment">// sequenza di char — apici doppi</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Bool -->
+                <div class="col-span-4 flex flex-col gap-3">
+                  <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(56,189,248,0.7)">
+                    Bool &mdash; Vero o Falso
+                  </div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:1rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:1rem !important; line-height:2">1<br>2</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">bool</span> <span class="tok-param">isActive</span> = <span class="tok-keyword">true</span>;</div>
+                        <div><span class="tok-keyword">bool</span> <span class="tok-param">isAdmin</span> = <span class="tok-keyword">false</span>;</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Notazioni Letterali -->
+                <div class="col-span-12 flex flex-col gap-3">
+                  <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,255,255,0.25)">
+                    Notazioni Letterali
+                  </div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:1rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:1rem !important; line-height:2">1<br>2<br>3</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">int</span> <span class="tok-param">hex</span> = <span class="tok-string">0xCBBA</span>; <span class="tok-comment">// esadecimale</span></div>
+                        <div><span class="tok-keyword">int</span> <span class="tok-param">bin</span> = <span class="tok-string">0b0001_0100</span>; <span class="tok-comment">// binario</span></div>
+                        <div><span class="tok-keyword">long</span> <span class="tok-param">lit</span> = <span class="tok-string">4_000L</span>; <span class="tok-comment">// long literal</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 09.03: Costanti ed Enum -->
+        <section id="const-and-enums">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                09.03 &mdash; Immutabilità e Liste Nominate
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-8 w-full">
+
+                <!-- Const -->
+                <div class="glass-card flex flex-col gap-5 border-l-4 border-aulab-yellow">
+                  <div class="flex items-center gap-4">
+                    <i class="fa-solid fa-anchor" style="font-size:1.2rem; color:#ffed00"></i>
+                    <h4>Costanti (const)</h4>
+                  </div>
+                  <p style="color:#9ca3af">Valori immutabili noti a compile-time. Utili per IVA, Pi greco, soglie.</p>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.95rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.95rem !important; line-height:2">1<br>2</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">const</span> <span class="tok-keyword">int</span> <span class="tok-param">ivaIT</span> = 22; <span class="tok-comment">// aliquota IVA italiana</span></div>
+                        <div><span class="tok-keyword">const</span> <span class="tok-keyword">double</span> <span class="tok-param">pi</span> = 3.14159; <span class="tok-comment">// Pi greco</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Enum -->
+                <div class="glass-card flex flex-col gap-5 border-l-4 border-aulab-cyan">
+                  <div class="flex items-center gap-4">
+                    <i class="fa-solid fa-layer-group" style="font-size:1.2rem; color:#38bdf8"></i>
+                    <h4>Enumerazioni (enum)</h4>
+                  </div>
+                  <p style="color:#9ca3af">Insieme di costanti nominate. Rende il codice leggibile e tipizzato.</p>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.95rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.95rem !important; line-height:2">1<br>2</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">enum</span> <span class="tok-type">Size</span> { <span class="tok-param">Small</span>, <span class="tok-param">Medium</span>, <span class="tok-param">Large</span> }</div>
+                        <div><span class="tok-type">Size</span> <span class="tok-param">mySize</span> = <span class="tok-type">Size</span>.<span class="tok-param">Medium</span>;</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+      <!-- SECTION 10: OPERATORI E CONDIZIONALI -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-cyan/60">Capitolo 10</span>
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(0,183,212,0.08)]">
+              <i class="fa-solid fa-calculator text-7xl text-aulab-cyan"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Operatori</h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">Logici</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Matematica, Confronti e
+              Booleani</p>
+          </div>
+        </section>
+
+        <!-- Slide 10.01: Operatori Aritmetici -->
+        <section id="arithmetic-operators">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                10.01 &mdash; Matematica e Shortcuts
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-6 w-full">
+
+                <!-- Operatori Aritmetici -->
+                <div class="col-span-12 glass-card flex items-center relative overflow-hidden">
+                  <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-aulab-yellow/5 rounded-full blur-2xl"></div>
+                  <div class="flex w-full justify-around">
+                    <div class="flex flex-col items-center" style="gap:0.5rem">
+                      <span style="font-size:2.8rem; font-weight:900; color:#ffed00">+</span>
+                      <span style="font-size:0.5rem; font-weight:700; text-transform:uppercase; color:#6b7280">Somma</span>
+                    </div>
+                    <div class="flex flex-col items-center" style="gap:0.5rem">
+                      <span style="font-size:2.8rem; font-weight:900; color:#ffed00">-</span>
+                      <span style="font-size:0.5rem; font-weight:700; text-transform:uppercase; color:#6b7280">Sottrazione</span>
+                    </div>
+                    <div class="flex flex-col items-center" style="gap:0.5rem">
+                      <span style="font-size:2.8rem; font-weight:900; color:#ffed00">*</span>
+                      <span style="font-size:0.5rem; font-weight:700; text-transform:uppercase; color:#6b7280">Moltiplicazione</span>
+                    </div>
+                    <div class="flex flex-col items-center" style="gap:0.5rem">
+                      <span style="font-size:2.8rem; font-weight:900; color:#ffed00">/</span>
+                      <span style="font-size:0.5rem; font-weight:700; text-transform:uppercase; color:#6b7280">Divisione</span>
+                    </div>
+                    <div class="flex flex-col items-center" style="gap:0.5rem">
+                      <span style="font-size:2.8rem; font-weight:900; color:#38bdf8">%</span>
+                      <span style="font-size:0.5rem; font-weight:700; text-transform:uppercase; color:#6b7280">Modulo</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Shorthand / Operatori Composti -->
+                <div class="col-span-12 flex flex-col gap-3">
+                  <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,255,255,0.25)">
+                    Shorthand &mdash; Operatori Composti
+                  </div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:1rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:1rem !important; line-height:2">1<br>2<br>3<br>4</div>
+                      <div class="ide-code">
+                        <div><span class="tok-param">x</span>++; <span class="tok-comment">// x = x + 1 &mdash; incremento</span></div>
+                        <div><span class="tok-param">x</span>--; <span class="tok-comment">// x = x - 1 &mdash; decremento</span></div>
+                        <div><span class="tok-param">x</span> += 5; <span class="tok-comment">// x = x + 5 &mdash; addizione composta</span></div>
+                        <div><span class="tok-param">x</span> *= 2; <span class="tok-comment">// x = x * 2 &mdash; moltiplicazione composta</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 10.02: Relazione e Logica -->
+        <section id="relational-and-logic">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                10.02 &mdash; Confronti e Porte Logiche
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-8 w-full items-start">
+
+                <!-- Operatori di Relazione -->
+                <div class="flex flex-col gap-3">
+                  <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,237,0,0.7)">
+                    Operatori di Relazione
+                  </div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.95rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.95rem !important; line-height:2">1<br>2<br>3<br>4<br>5<br>6</div>
+                      <div class="ide-code">
+                        <div><span class="tok-param">a</span> == <span class="tok-param">b</span>; <span class="tok-comment">// uguale a</span></div>
+                        <div><span class="tok-param">a</span> != <span class="tok-param">b</span>; <span class="tok-comment">// diverso da</span></div>
+                        <div><span class="tok-param">a</span> &gt;  <span class="tok-param">b</span>; <span class="tok-comment">// maggiore di</span></div>
+                        <div><span class="tok-param">a</span> &gt;= <span class="tok-param">b</span>; <span class="tok-comment">// maggiore o uguale</span></div>
+                        <div><span class="tok-param">a</span> &lt;  <span class="tok-param">b</span>; <span class="tok-comment">// minore di</span></div>
+                        <div><span class="tok-param">a</span> &lt;= <span class="tok-param">b</span>; <span class="tok-comment">// minore o uguale</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Logica Booleana -->
+                <div class="flex flex-col gap-3">
+                  <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(56,189,248,0.7)">
+                    Logica Booleana
+                  </div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.95rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.95rem !important; line-height:2">1<br>2<br>3</div>
+                      <div class="ide-code">
+                        <div><span class="tok-param">a</span> &gt; 0 &amp;&amp; <span class="tok-param">b</span> &gt; 0; <span class="tok-comment">// AND — entrambi TRUE</span></div>
+                        <div><span class="tok-param">a</span> &gt; 0 || <span class="tok-param">b</span> &gt; 0; <span class="tok-comment">// OR  — almeno uno TRUE</span></div>
+                        <div>!<span class="tok-param">isActive</span>; <span class="tok-comment">// NOT — negazione booleana</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+      <!-- SECTION 11: CONVERSIONI E TYPE INFERENCE -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-yellow/60">Capitolo 11</span>
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(255,237,0,0.08)]">
+              <i class="fa-solid fa-shuffle text-7xl text-aulab-yellow"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Conversioni
+              </h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">&amp;
+                Inference</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Casting, Parsing e lo zucchero
+              sintattico (var)</p>
+          </div>
+        </section>
+
+        <!-- Slide 11.01: Casting Implicito ed Esplicito -->
+        <section id="casting-types">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                11.01 &mdash; Il concetto di Casting
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-8 w-full">
+
+                <!-- Implicito (Widening) -->
+                <div class="glass-card flex flex-col gap-5 border-t-4 border-aulab-cyan">
+                  <div class="flex items-center gap-4">
+                    <i class="fa-solid fa-expand" style="font-size:1.2rem; color:#38bdf8"></i>
+                    <h4>Implicito (Widening)</h4>
+                  </div>
+                  <div style="color:#9ca3af">Automatico quando si passa da un tipo più piccolo a uno più grande. Nessun rischio di perdita dati.</div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.95rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.95rem !important; line-height:2">1<br>2</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">int</span> <span class="tok-param">myInt</span> = 10;</div>
+                        <div><span class="tok-keyword">double</span> <span class="tok-param">myDouble</span> = <span class="tok-param">myInt</span>; <span class="tok-comment">// widening — automatico</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Esplicito (Narrowing) -->
+                <div class="glass-card flex flex-col gap-5 border-t-4 border-aulab-yellow">
+                  <div class="flex items-center gap-4">
+                    <i class="fa-solid fa-compress" style="font-size:1.2rem; color:#ffed00"></i>
+                    <h4>Esplicito (Narrowing)</h4>
+                  </div>
+                  <div style="color:#9ca3af">Richiede intervento manuale con la sintassi <strong>(tipo)</strong>. Attenzione: rischio di <strong>perdita di dati</strong>.</div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.95rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.95rem !important; line-height:2">1<br>2</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">double</span> <span class="tok-param">myDouble</span> = 5.67;</div>
+                        <div><span class="tok-keyword">int</span> <span class="tok-param">myInt</span> = (<span class="tok-type">int</span>)<span class="tok-param">myDouble</span>; <span class="tok-comment">// narrowing — myInt = 5</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 11.02: Parsing e TryParse -->
+        <section id="parsing-strings">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                11.02 &mdash; Trasformare le Stringhe
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-6 w-full">
+                <!-- Parse vs TryParse Header -->
+                <div
+                  class="col-span-12 glass-card p-8 bg-linear-to-r from-aulab-yellow/5 to-transparent flex items-center gap-10">
+                  <div class="w-16 h-16 rounded-full bg-aulab-yellow/10 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-magnifying-glass-chart text-2xl text-aulab-yellow"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-black uppercase">Dal Testo al Numero</h3>
+                    <p class="text-gray-400 text-sm italic">"Parsing: Analisi di una stringa per estrarne un valore
+                      tipizzato."</p>
+                  </div>
+                </div>
+
+                <!-- Parse Method -->
+                <div class="col-span-4 glass-card p-6 border-b-2 border-red-500/30">
+                  <h4 style="margin-bottom:0.75rem"><code style="font-family:monospace; background:rgba(0,0,0,0.4); padding:0.15em 0.5em; border-radius:4px; letter-spacing:0; font-weight:600">int.Parse()</code></h4>
+                  <p class="text-[0.6rem] text-gray-500 mb-4 uppercase font-bold tracking-widest">Approccio Diretto</p>
+                  <p class="text-[0.65rem] text-gray-500">Semplice, ma se la stringa non è un numero valido, l'app va in
+                    <strong>Exception (Crash)</strong>.
+                  </p>
+                </div>
+
+                <!-- TryParse Method -->
+                <div class="col-span-4 glass-card p-6 border-b-2 border-aulab-cyan/30">
+                  <h4 style="margin-bottom:0.75rem"><code style="font-family:monospace; background:rgba(0,0,0,0.4); padding:0.15em 0.5em; border-radius:4px; letter-spacing:0; font-weight:600">int.TryParse()</code></h4>
+                  <p class="text-[0.6rem] text-gray-500 mb-4 uppercase font-bold tracking-widest">Approccio Sicuro</p>
+                  <p class="text-[0.65rem] text-gray-500">Tenta la conversione e restituisce un booleano. Ideale per
+                    input utente.</p>
+                </div>
+
+                <!-- Convert Class -->
+                <div class="col-span-4 glass-card p-6 border-b-2 border-aulab-yellow/30">
+                  <h4 style="margin-bottom:0.75rem"><code style="font-family:monospace; background:rgba(0,0,0,0.4); padding:0.15em 0.5em; border-radius:4px; letter-spacing:0; font-weight:600">Convert.ToInt32()</code></h4>
+                  <p class="text-[0.6rem] text-gray-500 mb-4 uppercase font-bold tracking-widest">Approccio Flessibile
+                  </p>
+                  <p class="text-[0.65rem] text-gray-500">Supporta conversioni tra tipi diversi, non solo da stringa.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 11.03: Type Inference (var) -->
+        <section id="type-inference">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                11.03 &mdash; Type Inference (var)
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="glass-card w-full relative overflow-hidden">
+                <div class="absolute -left-20 -bottom-20 w-80 h-80 bg-linear-to-tr from-aulab-cyan/5 to-transparent rounded-full blur-3xl"></div>
+                <div class="grid grid-cols-2 items-center" style="gap:4rem">
+
+                  <!-- Left: concept -->
+                  <div class="flex flex-col" style="gap:1.5rem">
+                    <div class="flex items-center" style="gap:1rem">
+                      <code style="font-family:monospace; font-size:2rem; font-weight:900; color:#38bdf8; background:rgba(56,189,248,0.1); padding:0.15em 0.5em; border-radius:6px">var</code>
+                      <h4>Type Inference</h4>
+                    </div>
+                    <div style="font-size:12pt; color:#9ca3af; line-height:1.7">
+                      Il compilatore deduce il tipo dalla parte destra dell'assegnazione.
+                      <br><br>
+                      <strong>Nota:</strong> C# rimane staticamente tipizzato — una volta inferito, il tipo non può più cambiare.
+                    </div>
+                  </div>
+
+                  <!-- Right: IDE block -->
+                  <div class="flex flex-col gap-3">
+                    <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(56,189,248,0.7)">
+                      Esempi di Inferenza
+                    </div>
+                    <div class="ide-block">
+                      <div class="ide-titlebar">
+                        <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                        <div class="ide-tab">Program.cs</div>
+                        <div></div>
+                      </div>
+                      <div class="ide-body" style="font-size:1rem !important; line-height:2">
+                        <div class="ide-gutter" style="font-size:1rem !important; line-height:2">1<br>2<br>3<br>4</div>
+                        <div class="ide-code">
+                          <div><span class="tok-keyword">var</span> <span class="tok-param">name</span>    = <span class="tok-string">"Aulab"</span>; <span class="tok-comment">// → string</span></div>
+                          <div><span class="tok-keyword">var</span> <span class="tok-param">score</span>   = 10; <span class="tok-comment">// → int</span></div>
+                          <div><span class="tok-keyword">var</span> <span class="tok-param">pi</span>      = 3.14; <span class="tok-comment">// → double</span></div>
+                          <div><span class="tok-keyword">var</span> <span class="tok-param">isAdmin</span> = <span class="tok-keyword">true</span>; <span class="tok-comment">// → bool</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+      <!-- SECTION 12: LE STRINGHE -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-cyan/60">Capitolo 12</span>
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(0,183,212,0.08)]">
+              <i class="fa-solid fa-quote-right text-7xl text-aulab-cyan"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Le</h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">Stringhe
+              </h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Immutabilità, Escape e
+              Interpolazione</p>
+          </div>
+        </section>
+
+        <!-- Slide 12.01: Immutabilità e Memoria -->
+        <section id="string-immutability">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                12.01 &mdash; Il dogma dell'Immutabilità
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-8 w-full">
+
+                <!-- Theory Card -->
+                <div class="col-span-5 glass-card flex flex-col justify-center gap-5 border-l-4 border-aulab-yellow">
+                  <h4>Sola Lettura</h4>
+                  <p style="color:#9ca3af">
+                    Le stringhe in C# sono <strong>immutabili</strong>. Una volta create nello Heap, non possono più cambiare.
+                  </p>
+                  <div style="display:flex; flex-direction:column; gap:0.75rem; margin-top:0.5rem">
+                    <div style="display:flex; align-items:center; gap:0.75rem; font-size:12pt; color:#6b7280">
+                      <i class="fa-solid fa-rotate" style="font-size:0.8rem; color:#ffed00; flex-shrink:0"></i>
+                      Ogni "modifica" crea una nuova stringa.
+                    </div>
+                    <div style="display:flex; align-items:center; gap:0.75rem; font-size:12pt; color:#6b7280">
+                      <i class="fa-solid fa-memory" style="font-size:0.8rem; color:#38bdf8; flex-shrink:0"></i>
+                      La stringa originale resta intatta nello Heap.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Memory Flow -->
+                <div class="col-span-7 flex flex-col gap-3">
+                  <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,255,255,0.25)">
+                    Memory Flow
+                  </div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:1rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:1rem !important; line-height:2">1<br>2</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">string</span> <span class="tok-param">s</span> = <span class="tok-string">"Ciao"</span>; <span class="tok-comment">// → crea String Object A nello Heap</span></div>
+                        <div><span class="tok-param">s</span> += <span class="tok-string">" Mondo"</span>; <span class="tok-comment">// → crea Object B — A viene abbandonato</span></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="padding:0.75rem 1rem; border-radius:0.5rem; background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.15); font-size:0.8rem; color:rgba(252,165,165,0.8); font-style:italic">
+                    Attenzione: manipolazioni massive in loop possono saturare la memoria — usare <strong>StringBuilder</strong>.
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 12.02: Escape e Verbatim -->
+        <section id="string-tricks">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                12.02 &mdash; Caratteri Speciali e Verbatim
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-8 w-full items-start">
+
+                <!-- Escape Characters -->
+                <div class="flex flex-col gap-3">
+                  <div style="font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:0.2em; color:rgba(255,237,0,0.7)">
+                    Escape Characters
+                  </div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:1rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:1rem !important; line-height:2">1<br>2<br>3<br>4</div>
+                      <div class="ide-code">
+                        <div><span class="tok-string">"Prima\nSeconda"</span>; <span class="tok-comment">// \n — a capo</span></div>
+                        <div><span class="tok-string">"Col1\tCol2"</span>; <span class="tok-comment">// \t — tab</span></div>
+                        <div><span class="tok-string">"Dice \"ciao\""</span>; <span class="tok-comment">// \" — virgolette</span></div>
+                        <div><span class="tok-string">"C:\\Users\\Pluto"</span>; <span class="tok-comment">// \\ — backslash</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Verbatim String -->
+                <div class="glass-card flex flex-col gap-5 border-l-4 border-aulab-cyan">
+                  <div class="flex items-center" style="gap:1rem">
+                    <code style="font-family:monospace; font-size:1.8rem; font-weight:900; color:#38bdf8; background:rgba(56,189,248,0.1); padding:0.1em 0.4em; border-radius:6px">@""</code>
+                    <h4>Verbatim String</h4>
+                  </div>
+                  <p style="color:#9ca3af">Ignora tutti gli escape. Ideale per percorsi file e regex.</p>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.95rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.95rem !important; line-height:2">1<br>2</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">string</span> <span class="tok-param">path</span>  = <span class="tok-string">@"C:\Users\Pluto"</span>; <span class="tok-comment">// nessun escape</span></div>
+                        <div><span class="tok-keyword">string</span> <span class="tok-param">regex</span> = <span class="tok-string">@"\d+\.\d+"</span>; <span class="tok-comment">// regex pulita</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 12.03: Interpolazione ($) -->
+        <section id="string-formatting">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                12.03 &mdash; String Interpolation
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-8 w-full">
+                <div
+                  class="col-span-12 glass-card p-12 bg-linear-to-r from-aulab-cyan/5 to-transparent relative overflow-hidden group">
+                  <div
+                    class="absolute -right-20 -top-20 w-80 h-80 bg-aulab-yellow/5 rounded-full blur-3xl opacity-50 group-hover:opacity-100 transition-opacity">
+                  </div>
+
+                  <div class="grid grid-cols-2 items-center" style="gap:3rem">
+                    <div class="flex flex-col" style="gap:1.5rem">
+                      <div class="flex items-center" style="gap:1rem">
+                        <code style="font-family:monospace; font-size:2rem; font-weight:900; color:#ffed00; background:rgba(255,237,0,0.1); padding:0.1em 0.4em; border-radius:6px">$""</code>
+                        <h4>Interpolazione</h4>
+                      </div>
+                      <div style="font-size:12pt; color:#9ca3af; line-height:1.7">
+                        Il modo più moderno per unire testo e variabili.<br><br>
+                        Basta inserire il nome tra parentesi graffe <code style="font-family:monospace; color:#ffed00; background:rgba(0,0,0,0.4); padding:0.1em 0.35em; border-radius:3px">{ }</code>.
+                      </div>
+                    </div>
+
+                    <div class="flex flex-col gap-3">
+                      <div class="ide-block">
+                        <div class="ide-titlebar">
+                          <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                          <div class="ide-tab">Program.cs</div>
+                          <div></div>
+                        </div>
+                        <div class="ide-body" style="font-size:0.85rem !important; line-height:2">
+                          <div class="ide-gutter" style="font-size:0.85rem !important; line-height:2">1<br>2<br>3<br>4</div>
+                          <div class="ide-code">
+                            <div><span class="tok-comment">// senza interpolazione</span></div>
+                            <div><span class="tok-string">"Nome: "</span> + <span class="tok-param">name</span> + <span class="tok-string">", Età: "</span> + <span class="tok-param">age</span>;</div>
+                            <div><span class="tok-comment">// con interpolazione ($)</span></div>
+                            <div><span class="tok-string">$"Nome: </span>{<span class="tok-param">name</span>}<span class="tok-string">, Età: </span>{<span class="tok-param">age</span>}<span class="tok-string">"</span>;</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+      <!-- SECTION 13: CONTROLLO DI FLUSSO E CICLI -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-yellow/60">Capitolo 13</span>
+              <span class="block w-10 h-px bg-aulab-yellow/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(255,237,0,0.08)]">
+              <i class="fa-solid fa-arrows-spin text-7xl text-aulab-yellow"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Controllo</h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">&amp; Cicli
+              </h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Diramazioni Logiche e
+              Iterazioni</p>
+          </div>
+        </section>
+
+        <!-- Slide 13.01: If, Else If, Else -->
+        <section id="conditional-logic">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                13.01 &mdash; Diramazioni (IF)
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="glass-card w-full relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-aulab-yellow/5 rounded-full blur-3xl"></div>
+                <div class="grid grid-cols-2 items-center" style="gap:3rem">
+
+                  <!-- Theory -->
+                  <div style="display:flex; flex-direction:column; gap:1.25rem">
+                    <h3>La Scelta Logica</h3>
+                    <p style="color:#9ca3af">Esegue blocchi di codice diversi in base alla veridicità di una condizione.</p>
+                    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem">
+                      <div style="background:rgba(255,255,255,0.05); padding:1rem; border-radius:0.5rem; text-align:center">
+                        <span style="display:block; font-size:0.7rem; font-weight:700; text-transform:uppercase; color:#ffed00; margin-bottom:0.25rem">if</span>
+                        <span style="font-size:0.5rem; color:#6b7280">Necessario</span>
+                      </div>
+                      <div style="background:rgba(255,255,255,0.05); padding:1rem; border-radius:0.5rem; text-align:center">
+                        <span style="display:block; font-size:0.7rem; font-weight:700; text-transform:uppercase; color:#38bdf8; margin-bottom:0.25rem">else if</span>
+                        <span style="font-size:0.5rem; color:#6b7280">Opzionale</span>
+                      </div>
+                      <div style="background:rgba(255,255,255,0.05); padding:1rem; border-radius:0.5rem; text-align:center">
+                        <span style="display:block; font-size:0.7rem; font-weight:700; text-transform:uppercase; color:#f3f4f6; margin-bottom:0.25rem">else</span>
+                        <span style="font-size:0.5rem; color:#6b7280">Default</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Code Example -->
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Logic.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.9rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.9rem !important; line-height:2">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">if</span> (<span class="tok-param">voto</span> &gt;= 90) {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-type">Console</span>.<span class="tok-fn">WriteLine</span>(<span class="tok-string">"Ottimo!"</span>);</div>
+                        <div>}</div>
+                        <div><span class="tok-keyword">else if</span> (<span class="tok-param">voto</span> &gt;= 60) {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-type">Console</span>.<span class="tok-fn">WriteLine</span>(<span class="tok-string">"Sufficiente"</span>);</div>
+                        <div>}</div>
+                        <div><span class="tok-keyword">else</span> {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-type">Console</span>.<span class="tok-fn">WriteLine</span>(<span class="tok-string">"Riprova"</span>);</div>
+                        <div>}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 13.02: Switch Statement -->
+        <section id="switch-logic">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                13.02 &mdash; Selezione Multipla (SWITCH)
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="glass-card w-full relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-aulab-cyan/5 rounded-full blur-3xl"></div>
+                <div class="grid grid-cols-2 items-center" style="gap:3rem">
+
+                  <!-- Theory -->
+                  <div style="display:flex; flex-direction:column; gap:1.25rem">
+                    <h3>Selezione Multipla</h3>
+                    <p style="color:#9ca3af">Perfetto quando confronti una singola variabile con molti valori discreti.</p>
+                    <ul style="display:flex; flex-direction:column; gap:0.75rem; list-style:none; padding:0; margin:0">
+                      <li style="display:flex; align-items:center; gap:0.75rem; font-size:12pt; color:#9ca3af">
+                        <i class="fa-solid fa-check" style="font-size:0.7rem; color:#38bdf8; flex-shrink:0"></i>
+                        Più leggibile di molti <code style="font-family:monospace; color:#ffed00; background:rgba(0,0,0,0.4); padding:0.1em 0.35em; border-radius:3px">if</code> nidificati
+                      </li>
+                      <li style="display:flex; align-items:center; gap:0.75rem; font-size:12pt; color:#9ca3af">
+                        <i class="fa-solid fa-code-branch" style="font-size:0.7rem; color:#38bdf8; flex-shrink:0"></i>
+                        Usa <code style="font-family:monospace; color:#38bdf8; background:rgba(0,0,0,0.4); padding:0.1em 0.35em; border-radius:3px">default</code> per i casi non previsti
+                      </li>
+                    </ul>
+                  </div>
+
+                  <!-- IDE Block -->
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Logic.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.9rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.9rem !important; line-height:2">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">switch</span> (<span class="tok-param">giorno</span>)</div>
+                        <div>{</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-keyword">case</span> 1: <span class="tok-param">nome</span> = <span class="tok-string">"Lunedì"</span>; <span class="tok-keyword">break</span>;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-keyword">case</span> 2: <span class="tok-param">nome</span> = <span class="tok-string">"Martedì"</span>; <span class="tok-keyword">break</span>;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-keyword">case</span> 3: <span class="tok-param">nome</span> = <span class="tok-string">"Mercoledì"</span>; <span class="tok-keyword">break</span>;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-keyword">case</span> 4: <span class="tok-param">nome</span> = <span class="tok-string">"Giovedì"</span>; <span class="tok-keyword">break</span>;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-keyword">case</span> 5: <span class="tok-param">nome</span> = <span class="tok-string">"Venerdì"</span>; <span class="tok-keyword">break</span>;</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-keyword">default</span>: <span class="tok-param">nome</span> = <span class="tok-string">"Weekend"</span>; <span class="tok-keyword">break</span>;</div>
+                        <div>}</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 13.03: While and Do While -->
+        <section id="loop-while">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                13.03 &mdash; Cicli Condizionali
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-8 w-full">
+
+                <!-- While -->
+                <div class="glass-card flex flex-col gap-4 border-t-4 border-aulab-yellow">
+                  <h4>While Loop</h4>
+                  <div style="font-size:0.65rem; color:#6b7280; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; font-style:italic">"Controlla, poi agisci"</div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.9rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.9rem !important; line-height:2">1<br>2<br>3<br>4</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">while</span> (<span class="tok-param">contatore</span> &lt; 5) {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-type">Console</span>.<span class="tok-fn">WriteLine</span>(<span class="tok-param">contatore</span>);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-param">contatore</span>++;</div>
+                        <div>}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Do While -->
+                <div class="glass-card flex flex-col gap-4 border-t-4 border-aulab-cyan">
+                  <h4>Do While Loop</h4>
+                  <div style="font-size:0.65rem; color:#6b7280; font-weight:700; text-transform:uppercase; letter-spacing:0.1em; font-style:italic">"Agisci, poi controlla"</div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.9rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.9rem !important; line-height:2">1<br>2<br>3<br>4</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">do</span> {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-type">Console</span>.<span class="tok-fn">WriteLine</span>(<span class="tok-param">contatore</span>);</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-param">contatore</span>++;</div>
+                        <div>} <span class="tok-keyword">while</span> (<span class="tok-param">contatore</span> &lt; 5);</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+        </section>
+
+        <!-- Slide 13.04: For Loop -->
+        <section id="loop-for">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                13.04 &mdash; Il Ciclo For
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="glass-card w-full relative overflow-hidden">
+                <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-aulab-yellow/5 rounded-full blur-3xl"></div>
+                <div class="grid grid-cols-2 items-center" style="gap:3rem">
+
+                  <!-- Theory -->
+                  <div style="display:flex; flex-direction:column; gap:1.25rem">
+                    <h3>L'Anatomia del FOR</h3>
+                    <p style="color:#9ca3af">Usato quando il numero di iterazioni è noto in anticipo. Le tre parti nella firma separano inizializzazione, condizione e aggiornamento.</p>
+                    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem">
+                      <div style="background:rgba(255,255,255,0.05); padding:1rem; border-radius:0.5rem; text-align:center">
+                        <span style="display:block; font-family:monospace; font-size:0.65rem; font-weight:700; color:#ffed00; margin-bottom:0.25rem">int i = 0</span>
+                        <span style="font-size:0.5rem; color:#6b7280; text-transform:uppercase">Init</span>
+                      </div>
+                      <div style="background:rgba(255,255,255,0.05); padding:1rem; border-radius:0.5rem; text-align:center">
+                        <span style="display:block; font-family:monospace; font-size:0.65rem; font-weight:700; color:#38bdf8; margin-bottom:0.25rem">i &lt; 10</span>
+                        <span style="font-size:0.5rem; color:#6b7280; text-transform:uppercase">Condizione</span>
+                      </div>
+                      <div style="background:rgba(255,255,255,0.05); padding:1rem; border-radius:0.5rem; text-align:center">
+                        <span style="display:block; font-family:monospace; font-size:0.65rem; font-weight:700; color:#f3f4f6; margin-bottom:0.25rem">i++</span>
+                        <span style="font-size:0.5rem; color:#6b7280; text-transform:uppercase">Aggiornamento</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- IDE Block -->
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.9rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.9rem !important; line-height:2">1<br>2<br>3<br>4<br>5<br>6</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">for</span> (<span class="tok-keyword">int</span> <span class="tok-param">i</span> = 0; <span class="tok-param">i</span> &lt; 10; <span class="tok-param">i</span>++) {</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-type">Console</span>.<span class="tok-fn">WriteLine</span>(<span class="tok-param">i</span>);</div>
+                        <div>}</div>
+                        <div></div>
+                        <div><span class="tok-comment">// stampa: 0 1 2 3 4 5 6 7 8 9</span></div>
+                        <div><span class="tok-comment">// i parte da 0, sale fino a 9</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+      <!-- SECTION 14: GLI ARRAY -->
+      <section>
+
+        <!-- Section Divider -->
+        <section class="section-divider" data-state="is-section-divider">
+          <div class="flex flex-col items-center justify-center gap-8 text-center">
+            <!-- Eyebrow -->
+            <div class="flex items-center gap-3">
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+              <span class="text-xs font-bold uppercase tracking-[0.3em] text-aulab-cyan/60">Capitolo 14</span>
+              <span class="block w-10 h-px bg-aulab-cyan/40"></span>
+            </div>
+            <!-- Icon -->
+            <div class="p-5 rounded-2xl bg-white/[0.04] border border-white/10 shadow-[0_0_60px_rgba(0,183,212,0.08)]">
+              <i class="fa-solid fa-table-cells text-7xl text-aulab-cyan"></i>
+            </div>
+            <!-- Title -->
+            <div class="space-y-0">
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-white leading-[0.88] uppercase">Gli</h1>
+              <h1 class="text-[6.5rem] font-black tracking-[-0.04em] text-gradient leading-[0.88] uppercase">Array</h1>
+            </div>
+            <!-- Divider -->
+            <div class="w-16 h-px bg-white/10"></div>
+            <!-- Subtitle -->
+            <p class="text-base font-semibold uppercase tracking-[0.22em] text-gray-500">Collezioni di dati a dimensione
+              fissa</p>
+          </div>
+        </section>
+
+        <!-- Slide 14.01: Definizione e Memoria -->
+        <section id="array-definition">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                14.01 &mdash; Struttura e Indici
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-8 w-full items-start">
+
+                <!-- Concept Card -->
+                <div class="col-span-4 glass-card flex flex-col justify-center gap-5 border-l-4 border-aulab-yellow">
+                  <h4>I Contenitori</h4>
+                  <p style="color:#9ca3af">Un array è una sequenza <strong>ordinata</strong> di elementi dello stesso tipo.</p>
+                  <ul style="list-style:none; padding:0; padding-inline-start:0; margin:0; display:flex; flex-direction:column; gap:0.75rem">
+                    <li style="font-size:12pt; color:#9ca3af; padding:0">L'indice parte sempre da <strong style="color:#ffed00">ZERO</strong>.</li>
+                    <li style="font-size:12pt; color:#9ca3af; padding:0">La dimensione è <strong>FISSA</strong>.</li>
+                  </ul>
+                </div>
+
+                <!-- Visual + Code -->
+                <div class="col-span-8 glass-card flex flex-col gap-5">
+
+                  <!-- Array cells -->
+                  <div style="display:flex; gap:0.75rem">
+                    <div style="flex:1; background:rgba(255,237,0,0.06); border:2px solid rgba(255,237,0,0.3); border-radius:1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.25rem 0; gap:0.5rem">
+                      <span style="font-family:monospace; font-size:0.85rem; font-weight:900; color:#ffed00">[0]</span>
+                      <span style="font-size:1.4rem; font-weight:900; color:#f3f4f6">10</span>
+                    </div>
+                    <div style="flex:1; background:rgba(255,255,255,0.04); border:1px dashed rgba(255,255,255,0.12); border-radius:1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.25rem 0; gap:0.5rem">
+                      <span style="font-family:monospace; font-size:0.85rem; font-weight:900; color:#9ca3af">[1]</span>
+                      <span style="font-size:1.4rem; font-weight:900; color:#f3f4f6">20</span>
+                    </div>
+                    <div style="flex:1; background:rgba(255,255,255,0.04); border:1px dashed rgba(255,255,255,0.12); border-radius:1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.25rem 0; gap:0.5rem">
+                      <span style="font-family:monospace; font-size:0.85rem; font-weight:900; color:#9ca3af">[2]</span>
+                      <span style="font-size:1.4rem; font-weight:900; color:#f3f4f6">30</span>
+                    </div>
+                    <div style="flex:1; background:rgba(255,255,255,0.04); border:1px dashed rgba(255,255,255,0.12); border-radius:1rem; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:1.25rem 0; gap:0.5rem">
+                      <span style="font-family:monospace; font-size:0.85rem; font-weight:900; color:#9ca3af">[3]</span>
+                      <span style="font-size:1.4rem; font-weight:900; color:#f3f4f6">40</span>
+                    </div>
+                  </div>
+
+                  <!-- IDE block -->
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab">Program.cs</div>
+                      <div></div>
+                    </div>
+                    <div class="ide-body" style="font-size:0.88rem !important; line-height:2">
+                      <div class="ide-gutter" style="font-size:0.88rem !important; line-height:2">1<br>2<br>3<br>4</div>
+                      <div class="ide-code">
+                        <div><span class="tok-keyword">int</span>[] <span class="tok-param">numeri</span> = { 10, 20, 30, 40 };</div>
+                        <div></div>
+                        <div><span class="tok-param">numeri</span>[0]; <span class="tok-comment">// → 10  (primo elemento — indice 0)</span></div>
+                        <div><span class="tok-param">numeri</span>[3]; <span class="tok-comment">// → 40  (ultimo elemento — indice 3)</span></div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 14.02: Inizializzazione -->
+        <section id="array-init">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                14.02 &mdash; Modi di creare un Array
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-2 gap-8 w-full items-start">
+
+                <!-- Allocazione Vuota -->
+                <div class="glass-card flex flex-col gap-5 border-t-4 border-aulab-yellow">
+                  <h4 style="color:#ffed00">Allocazione Vuota</h4>
+                  <div style="font-size:12pt; color:#9ca3af">Definiamo la dimensione, C# inizializza i valori a <strong>default</strong> (<code style="font-family:monospace; background:rgba(0,0,0,0.4); padding:0.1em 0.4em; border-radius:4px">0</code> per int).</div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab"><i class="fa-solid fa-file-code tok-keyword" style="font-size:0.55rem"></i> Program.cs</div>
+                      <div style="width:3.5rem"></div>
+                    </div>
+                    <div class="ide-body" style="font-size:1.3rem !important">
+                      <div class="ide-gutter" style="font-size:1.3rem !important"><div>1</div><div>2</div></div>
+                      <div class="ide-code">
+                        <div><span class="tok-type">int</span>[] numeri = <span class="tok-keyword">new</span> <span class="tok-type">int</span>[5];</div>
+                        <div><span class="tok-comment">// → [0, 0, 0, 0, 0]</span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Inizializzazione Diretta -->
+                <div class="glass-card flex flex-col gap-5 border-t-4 border-aulab-cyan">
+                  <h4 style="color:#38bdf8">Inizializzazione Diretta</h4>
+                  <div style="font-size:12pt; color:#9ca3af">Inseriamo subito i valori. La dimensione viene <strong>dedotta</strong> dal compilatore.</div>
+                  <div class="ide-block">
+                    <div class="ide-titlebar">
+                      <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                      <div class="ide-tab"><i class="fa-solid fa-file-code tok-keyword" style="font-size:0.55rem"></i> Program.cs</div>
+                      <div style="width:3.5rem"></div>
+                    </div>
+                    <div class="ide-body" style="font-size:1.3rem !important">
+                      <div class="ide-gutter" style="font-size:1.3rem !important"><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div></div>
+                      <div class="ide-code">
+                        <div><span class="tok-type">string</span>[] nomi =</div>
+                        <div>{</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-string">"fallout"</span>,</div>
+                        <div>&nbsp;&nbsp;&nbsp;&nbsp;<span class="tok-string">"doom"</span></div>
+                        <div>};</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Slide 14.03: Metodi e Manipolazione -->
+        <section id="array-methods">
+          <div class="flex flex-col h-full">
+            <div class="slide-header flex items-center gap-3 border-b border-white/5 pb-5">
+              <span class="text-[0.65rem] font-bold uppercase tracking-[0.25em] text-aulab-yellow/60">
+                14.03 &mdash; Operazioni Fondamentali
+              </span>
+            </div>
+
+            <div class="flex-1 flex items-center">
+              <div class="grid grid-cols-12 gap-6 w-full items-start">
+
+                <!-- Length -->
+                <div class="col-span-4 glass-card flex flex-col gap-4 border-t-4 border-aulab-yellow">
+                  <h4><code style="font-family:monospace; background:rgba(0,0,0,0.4); padding:0.15em 0.5em; border-radius:4px; letter-spacing:0; font-weight:600; color:#ffed00">.Length</code></h4>
+                  <div style="font-size:12pt; color:#9ca3af">Proprietà che restituisce il numero totale di elementi dell'array.</div>
+                </div>
+
+                <!-- Sort -->
+                <div class="col-span-4 glass-card flex flex-col gap-4 border-t-4 border-aulab-cyan">
+                  <h4><code style="font-family:monospace; background:rgba(0,0,0,0.4); padding:0.15em 0.5em; border-radius:4px; letter-spacing:0; font-weight:600; color:#38bdf8">Array.Sort()</code></h4>
+                  <div style="font-size:12pt; color:#9ca3af">Ordina gli elementi dell'array <strong>in-place</strong>, in modo crescente.</div>
+                </div>
+
+                <!-- Join -->
+                <div class="col-span-4 glass-card flex flex-col gap-4 border-t-4 border-white/20">
+                  <h4><code style="font-family:monospace; background:rgba(0,0,0,0.4); padding:0.15em 0.5em; border-radius:4px; letter-spacing:0; font-weight:600; color:#e5e7eb">string.Join()</code></h4>
+                  <div style="font-size:12pt; color:#9ca3af">Unisce tutti gli elementi in una stringa, separati da un delimitatore.</div>
+                </div>
+
+                <!-- IDE Block -->
+                <div class="col-span-12 ide-block">
+                  <div class="ide-titlebar">
+                    <div class="ide-traffic-lights"><span></span><span></span><span></span></div>
+                    <div class="ide-tab"><i class="fa-solid fa-file-code tok-keyword" style="font-size:0.55rem"></i> Program.cs</div>
+                    <div style="width:3.5rem"></div>
+                  </div>
+                  <div class="ide-body">
+                    <div class="ide-gutter"><div>1</div><div>2</div><div>3</div><div>4</div></div>
+                    <div class="ide-code">
+                      <div><span class="tok-type">int</span>[] numeri = { 5, 2, 8, 1, 3 };</div>
+                      <div><span class="tok-type">Array</span>.<span class="tok-fn">Sort</span>(numeri);</div>
+                      <div><span class="tok-type">Console</span>.<span class="tok-fn">WriteLine</span>(<span class="tok-keyword">string</span>.<span class="tok-fn">Join</span>(<span class="tok-string">", "</span>, numeri));</div>
+                      <div><span class="tok-comment">// → "1, 2, 3, 5, 8"</span></div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </section>
+
+      <!-- Slide 15: Grazie -->
+      <section id="fine">
+        <div class="flex flex-col h-full items-center justify-center" style="gap:2.5rem; text-align:center">
+
+          <!-- Eyebrow -->
+          <div style="font-size:0.65rem; font-weight:700; letter-spacing:0.25em; text-transform:uppercase; color:rgba(255,237,0,0.5)">
+            15 &mdash; Fine del modulo
+          </div>
+
+          <!-- Titolo -->
+          <div>
+            <div style="font-size:4.5rem; font-weight:900; letter-spacing:-0.02em; color:#ffed00; line-height:1">Grazie dell'ascolto.</div>
+          </div>
+
+          <!-- Divisore -->
+          <div style="width:3rem; height:2px; background:rgba(255,237,0,0.3); border-radius:2px"></div>
+
+          <!-- Link homepage -->
+          <a href="../../index.html" style="display:inline-flex; align-items:center; gap:0.6rem; font-size:0.85rem; font-weight:600; color:#38bdf8; text-decoration:none; background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.2); padding:0.6rem 1.4rem; border-radius:9999px; letter-spacing:0.05em; transition:all 0.2s">
+            <i class="fa-solid fa-house" style="font-size:0.7rem"></i>
+            Torna alle lezioni
+          </a>
+
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/chart/plugin.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0.1,
+      controls: true,
+      progress: true,
+      slideNumber: false,
+      hash: true,
+      transition: 'fade',
+      center: false,
+      plugins: [RevealChart],
+      chart: {
+        defaults: Object.assign({
+          color: 'rgba(255, 255, 255, 0.8)',
+          borderColor: 'rgba(255, 255, 255, 0.8)',
+          devicePixelRatio: 2
+        }, window.location.search.includes('export') ? { animation: false } : {})
+      }
+    });
+  </script>
+</body>
+
+</html>
